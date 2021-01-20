@@ -1,0 +1,44 @@
+$mainText: #f65261
+$borderRadius: .5rem
+$btnFS: 1.3rem
+
+.wrapper
+  display: flex
+  flex-direction: row
+  justify-content: flex-end
+  padding: 1rem
+
+  .addBtn
+    display: block
+    width: 30%
+    height: 3.3rem
+    border-radius: $borderRadius
+    border: none
+    color: #fff
+    background: $mainText
+    font-size: $btnFS
+    margin-right: 1rem
+    text-transform: uppercase
+
+    &:hover
+      cursor: pointer
+
+    &:focus
+      outline: none
+
+  .removeBtn
+    display: block
+    width: 30%
+    height: 3.3rem
+    border-radius: $borderRadius
+    border: 1px solid $mainText
+    color: $mainText
+    background: none
+    font-size: $btnFS
+    text-transform: uppercase
+
+    &:hover
+      cursor: pointer
+
+    &:focus
+      outline: none

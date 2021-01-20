@@ -6,11 +6,16 @@ module.exports = {
     mode: 'development',
     entry:  './src/index.js',
     output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle.js',
-        publicPath: ""
+        path: path.resolve(__dirname, 'build'),
+        chunkFilename: '[name].bundle.js',
+        filename: "[name].bundle.js"
     },
     devtool: 'source-map',
+    optimization: {
+        splitChunks: {
+            chunks: "all"
+        }
+    },
     module: {
         rules: [
             {
@@ -30,18 +35,40 @@ module.exports = {
                             }
                         }
                     },
-                    // {loader: 'postcss-loader', options: {
-                    //         ident: 'postcss',
-                    //         plugins: () => [autoprefixer()({
-                    //             'browsers': ['> 1%', 'last 2 versions']
-                    //         })]
-                    //     }
-                    // }
+
                 ]
             },
             {
-                test: /\.(png|jpe?g|gif)$/,
-                loader: 'url-loader?limit=8000&name=images/[name].[ext]'
+                test: /\.s[ac]ss$/i,
+                exclude: /node_modules/,
+                use: [
+                    { loader: 'style-loader'},
+                    { loader: 'css-loader', options: {
+                            importLoaders: 1,
+                            modules: {
+                                localIdentName: '[name]__[local]__[hash:base64:5]'
+                            }
+                        }
+                    },
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            sourceMap: true,
+                        },
+                    }
+                ]
+            },
+            {
+                test: /\.(png|jpe?g|gif)$/i,
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 8192,
+                            name: 'images/[name].[ext]'
+                        }
+                    }
+                ]
             },
         ]
     },
@@ -50,6 +77,6 @@ module.exports = {
             template: __dirname + '/src/index.html',
             filename: 'index.html',
             inject: 'body'
-        })
+        }),
     ]
 }

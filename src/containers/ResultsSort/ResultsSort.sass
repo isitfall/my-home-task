@@ -1,0 +1,49 @@
+.ResultsSort
+  display: flex
+  flex-direction: row
+  justify-content: space-between
+  width: 25%
+
+  &__name
+    display: flex
+    align-items: center
+    font-size: 1.3rem
+    font-weight: 300
+    text-transform: uppercase
+    color: #555555
+
+  &__select
+    position: relative
+    width: 60%
+    display: flex
+    justify-content: space-between
+
+    &::after
+      content: '\25BC'
+      color: #f65261
+      position: absolute
+      top: 50%
+      right: 0
+      transform: translateY(-60%)
+
+select
+  background: inherit
+  border: none
+  color: #ffffff
+  font-size: 1.3rem
+  font-weight: 100
+  text-transform: uppercase
+  appearance: none
+  -webkit-appearance: none
+  -moz-appearance: none
+
+  &:focus
+    outline: none
+
+
+
+option
+  display: block
+  background: #232323
+  padding: .1rem 1rem
+  font-size: 1rem

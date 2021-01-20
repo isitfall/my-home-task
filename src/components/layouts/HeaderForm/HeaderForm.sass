@@ -1,0 +1,38 @@
+$mainText: #f65261
+$borderRadius: .5rem
+$btnFS: 1.3rem
+
+.HeaderForm
+  margin: 2rem auto
+  display: flex
+  flex-direction: row
+  justify-content: space-between
+
+  input[type='text']
+    height: 3rem
+    width: 70%
+    padding: 0.3rem 1rem
+    background: rgba(255,255,255,0.1)
+    border-radius: $borderRadius
+    border: none
+    font-size: $btnFS
+    font-weight: 100
+    color: #fff
+    &:focus
+      outline: none
+
+  input[type='submit']
+    display: block
+    width: 25%
+    border-radius: $borderRadius
+    border: none
+    color: #fff
+    background: $mainText
+    font-size: $btnFS
+    text-transform: uppercase
+
+    &:focus
+      outline: none
+
+    &:hover
+      cursor: pointer
