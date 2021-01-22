@@ -1,36 +1,32 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import classes from './ResultsSort.sass'
 
-export default class ResultsSort extends Component {
-    constructor(props) {
-        super(props);
+export default function ResultsSort (props) {
 
-        this.state = {selectValue : 'releaseDate'}
-        
-        this.changeHandler = this.changeHandler.bind(this)
-    }
+    const [state, setState] = useState({selectValue : 'releaseDate'})
 
-    changeHandler(event) {
-        this.setState({
+
+    function changeHandler(event) {
+        setState({
             selectValue: event.target.value
         })
     }
 
-    render() {
-        return (
-            <div className={classes.ResultsSort}>
-                <span className={classes.ResultsSort__name}>sort by</span>
-                <div className={classes.ResultsSort__select}>
-                    <select name="SortResults"
-                            id="SortResults"
-                            value={this.state.selectValue}
-                            onChange={this.changeHandler}
-                    >
-                        <option value="releaseDate">Release date</option>
-                        <option value="byName">By Name</option>
-                    </select>
-                </div>
+
+    return (
+        <div className={classes.ResultsSort}>
+            <span className={classes.ResultsSort__name}>sort by</span>
+            <div className={classes.ResultsSort__select}>
+                <select name="SortResults"
+                        id="SortResults"
+                        value={state.selectValue}
+                        onChange={changeHandler}
+                >
+                    <option value="releaseDate">Release date</option>
+                    <option value="byName">By Name</option>
+                </select>
             </div>
-        )
-    }
+        </div>
+    )
+
 }

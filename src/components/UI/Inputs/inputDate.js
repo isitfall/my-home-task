@@ -8,12 +8,18 @@ export default function InputDate(props) {
             <span>{props.title}</span>
             <input type="date"
                    name={props.name}
-                   onChange={props.changeHandler}/>
+                   onChange={props.changeHandler}
+                   value={props.value}
+            />
         </label>
     )
 }
 
 InputDate.propTypes = {
+    value: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ]),
     name: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     placeholder: PropTypes.string,

@@ -27,5 +27,5 @@ Select.propTypes = {
     name: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     placeholder: PropTypes.string,
-    changeHandler: PropTypes.func,
+    change: PropTypes.func,
 }

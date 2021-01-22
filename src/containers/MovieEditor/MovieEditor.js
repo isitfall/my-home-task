@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useRef } from 'react';
 
 import classes from './MovieEditor.sass'
 import PropTypes from 'prop-types'
@@ -14,79 +14,103 @@ import MovieId from "../../components/UI/MovieId/MovieId";
 
 
 
-export default class MovieEditor extends Component {
-    constructor(props) {
-        super(props);
+export default function MovieEditor(props) {
 
-        this.state = {
+    const [state, setState] = useState({
             title : '',
             releaseDate: '',
             movieUrl: '',
             genre: 'selectGenre',
             overview: '',
             runtime: '',
-        }
+        })
+    const form = useRef(null)
 
-        this.changeSelectHandler = this.changeSelectHandler.bind(this)
-    }
-
-    changeSelectHandler(e) {
-        this.setState({genre: e.target.value})
-    }
-
-
-
-    render() {
-        return (
-            <BlurBackground>
-                <div className={classes.MovieEditor}>
-                    <ExitButton click={this.props.click}/>
-                    <MainTitle fontSize={'2rem'}>{this.props.isMovieEditor ? 'Edit Movie' : 'Add Movie'}</MainTitle>
-                    <form onSubmit={event => event.preventDefault()}>
-                        {this.props.isMovieEditor ? <MovieId />  : null}
-                        <InputText
-                            name={'title'}
-                            title={'title'}
-                            placeholder={'Title here'}
-                            value={this.state.title}
-                        />
-                        <InputDate
-                            name={'date'}
-                            title={'release date'}
-                            placeholder={'Select Date'}
-                            inputType={'date'}
-                        />
-                        <InputText
-                            name={'url'}
-                            title={'movie url'}
-                            placeholder={'Movie URL here'}
-                        />
-                        <Select
-                            name={'genre'}
-                            title={'genre'}
-                            selectValue={this.state.genre}
-                            change = {this.changeSelectHandler}
-                        />
-                        <InputText
-                            name={'overview'}
-                            title={'overview'}
-                            placeholder={'Overview here'}
-                        />
-                        <InputText
-                            name={'runtime'}
-                            title={'runtime'}
-                            placeholder={'Runtime here'}
-                        />
-                        <BtnsFormEditor
-                        />
-                    </form>
-
-                </div>
-
-
-            </BlurBackground>
+    function resetForm() {
+        setState(() =>({
+            title : '',
+            releaseDate: '',
+            movieUrl: '',
+            genre: 'selectGenre',
+            overview: '',
+            runtime: '',
+            })
         )
     }
+
+
+    function changeSelectHandler(e) {
+        const {name, value} = e.target
+        setState(prevState => {
+            return {
+                ...prevState,
+                [name]: value
+            }
+        })
+    }
+
+
+
+
+    return (
+        <BlurBackground>
+            <div className={classes.MovieEditor}>
+                <ExitButton click={props.click}/>
+                <MainTitle fontSize={'2rem'}>
+                    {props.isMovieEditor
+                    ? 'Edit Movie'
+                    : 'Add Movie'}
+                </MainTitle>
+                <form ref={form} onSubmit={event => {
+                    event.preventDefault();
+                    console.log(state)
+                }}>
+                    {props.isMovieEditor ? <MovieId />  : null}
+                    <InputText
+                        name={'title'}
+                        title={'title'}
+                        placeholder={'Title here'}
+                        value={state.title}
+                        change = {changeSelectHandler}
+                    />
+                    <InputDate
+                        name={'date'}
+                        title={'release date'}
+                        placeholder={'Select Date'}
+                        inputType={'date'}
+                        change = {changeSelectHandler}
+                    />
+                    <InputText
+                        name={'url'}
+                        title={'movie url'}
+                        placeholder={'Movie URL here'}
+                        change = {changeSelectHandler}
+                    />
+                    <Select
+                        name={'genre'}
+                        title={'genre'}
+                        selectValue={state.genre}
+                        change = {changeSelectHandler}
+                    />
+                    <InputText
+                        name={'overview'}
+                        title={'overview'}
+                        placeholder={'Overview here'}
+                        change = {changeSelectHandler}
+                    />
+                    <InputText
+                        name={'runtime'}
+                        title={'runtime'}
+                        placeholder={'Runtime here'}
+                        change = {changeSelectHandler}
+                    />
+                    <BtnsFormEditor click={resetForm}
+                    />
+                </form>
+            </div>
+        </BlurBackground>
+    )
+
 }
 
 MovieEditor.propTypes = {

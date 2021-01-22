@@ -9,6 +9,7 @@ export default function BtnsFormEditor(props) {
             <Button
                 styles={classes.addBtn}
                 title={'reset'}
+                click={props.click}
             />
             <Button
                 styles={classes.removeBtn}

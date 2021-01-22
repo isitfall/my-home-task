@@ -10,12 +10,18 @@ export default function InputText(props) {
                    placeholder={props.placeholder}
                    id={props.name}
                    type='text'
-                   onChange={props.changeHandler}/>
+                   onChange={props.changeHandler}
+                   value={props.value}
+            />
         </label>
     )
 }
 
 InputText.propTypes = {
+    value: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ]),
     name: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     placeholder: PropTypes.string,

@@ -1,72 +1,48 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import AddMovie from './containers/MovieEditor/MovieEditor'
 import DeleteMovie from "./components/layouts/DeleteMovie/DeleteMovie";
-import Header from "./containers/Header/Header";
-import MainSection from "./containers/MainSection/MainSection";
+import Header from "./components/layouts/Header/Header";
+import MainSection from "./components/layouts/MainSection/MainSection";
 import Footer from "./components/layouts/Footer/Footer";
+import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
 
-export default class App extends React.Component {
-    constructor(props) {
-        super(props);
+export default function App() {
 
-        this.state = {
-            addMovie: false,
-            deleteMovie: true
-        }
+    const [showMovieDetails, setShowMovieDetails] = useState(false);
+    const [addMovie, setAddMovie] = useState(false);
+    const [deleteMovie, setDeleteMovie] = useState(false)
 
-        this.addMovieToggle = this.addMovieToggle.bind(this)
-        this.deleteMovieToggle = this.deleteMovieToggle.bind(this)
+    function toggleShowMovieDetails() {
+        setShowMovieDetails(!showMovieDetails)
     }
 
-    addMovieToggle() {
-        let overflow = document.body.style.overflow
-
-        if ( overflow === '') {
-            overflow = 'hidden'
-        } else {
-            overflow = ''
-        }
-
-        this.setState(state => {
-            return {addMovie : !state.addMovie}
-        })
+    function toggleAddMovie() {
+        document.body.style.overflow
+            ? document.body.style.overflow = null
+            : document.body.style.overflow = 'hidden'
+        setAddMovie(!addMovie)
     }
 
-    deleteMovieToggle() {
-        let overflow = document.body.style.overflow
-
-        if ( overflow === '') {
-            overflow = 'hidden'
-        } else {
-            overflow = ''
-        }
-
-        this.setState(state => {
-            return {deleteMovie : !state.deleteMovie}
-        })
-    }
-
-
-    render() {
-        if (this.state.addMovie) {
-            document.body.style.overflow = 'hidden'
-        } else {
-            document.body.style = null
-        }
-
-        return (
-            <>
-                {this.state.addMovie
-                    ? <AddMovie click={this.addMovieToggle}/> //isMovieEditor prop as boolean
-                    : null}
-                {this.state.deleteMovie
-                    ? <DeleteMovie click = {this.deleteMovieToggle}/>
-                    : null
+    return (
+        <>
+            {addMovie
+                ? <AddMovie click={toggleAddMovie}/> //isMovieEditor prop as boolean
+                : null}
+            {deleteMovie
+                ? <DeleteMovie click = {console.log('DeleteMovie')}/>
+                : null
+            }
+            <Header showMovieDetails={showMovieDetails}
+                click={showMovieDetails
+                    ? toggleShowMovieDetails
+                    : toggleAddMovie
                 }
-                <Header click={this.addMovieToggle}/>
+            />
+            <ErrorBoundary>
                 <MainSection />
-                <Footer />
-            </>
-        )
-    }
+            </ErrorBoundary>
+            <Footer />
+        </>
+    )
+
 }
