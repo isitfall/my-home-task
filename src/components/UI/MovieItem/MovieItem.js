@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import DotsIcon from "../DotsIcon/DotsIcon";
 import MovieMenu from "../../layouts/MovieMenu/MovieMenu";
 import classes from './MovieItem.sass'
 import PropTypes from 'prop-types';
+import { MovieListItemContext } from "../../../Context/Context";
 
 
 export default function MovieItem(props) {
     const [hovered, setHovered] = useState(false)
     const [isShowMovieMenu, setIsShowMovieMenu] = useState(false)
+    const context = useContext(MovieListItemContext)
 
     function onHoverHandler() {
         if (isShowMovieMenu) {
@@ -40,6 +42,7 @@ export default function MovieItem(props) {
 
     return (
         <div className={classes.MovieItem}
+             onClick={context.showMovieDetails}
              onMouseEnter={onHoverHandler}
              onMouseLeave={onHoverHandler}
         >

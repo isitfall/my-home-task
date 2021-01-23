@@ -1,10 +1,15 @@
 import React from 'react'
 import classes from './MovieMenuItem.sass'
+import PropTypes from 'prop-types'
 
 export default function MovieMenuItem(props) {
     return (
-        <div className={classes.MovieMenuItem}>
+        <div onClick={props.click} className={classes.MovieMenuItem}>
             <p>{props.children}</p>
         </div>
     )
+}
+
+MovieMenuItem.propTypes = {
+    click: PropTypes.func
 }

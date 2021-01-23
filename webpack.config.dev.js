@@ -11,6 +11,10 @@ module.exports = {
         filename: "[name].bundle.js"
     },
     devtool: 'source-map',
+    devServer: {
+        contentBase: './dist',
+        hot: true,
+    },
     optimization: {
         splitChunks: {
             chunks: "all"
