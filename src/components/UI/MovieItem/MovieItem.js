@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import DotsIcon from "../DotsIcon/DotsIcon";
 import MovieMenu from "../../layouts/MovieMenu/MovieMenu";
 import classes from './MovieItem.sass'
@@ -10,6 +10,8 @@ export default function MovieItem(props) {
     const [hovered, setHovered] = useState(false)
     const [isShowMovieMenu, setIsShowMovieMenu] = useState(false)
     const context = useContext(MovieListItemContext)
+
+    // useEffect(() => console.log(props), [])
 
     function onHoverHandler() {
         if (isShowMovieMenu) {
@@ -48,15 +50,15 @@ export default function MovieItem(props) {
         >
             {showByConditionally()}
             <img src={props.img} alt="img"/>
-            <div className={classes.MovieItem__description}>
-                <span className={classes.MovieItem__name}>
-                    {props.name}
+            <div className={classes.description}>
+                <span className={classes.name}>
+                    {props.title}
                 </span>
-                <span className={classes.MovieItem__year}>
-                    {props.year}
+                <span className={classes.year}>
+                    {new Date(props.release_date).getFullYear()}
                 </span>
             </div>
-            <span className={classes.MovieItem__genre}>
+            <span className={classes.genre}>
                 {props.genre}
             </span>
         </div>
@@ -66,7 +68,16 @@ export default function MovieItem(props) {
 
 MovieItem.PropTypes = {
     img: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
-    genre: PropTypes.string.isRequired
+    title: PropTypes.string.isRequired,
+    release_date: PropTypes.string.isRequired,
+    genre: PropTypes.array.isRequired,
+    overview: PropTypes.string.isRequired,
+    runtime: PropTypes.number,
+    tagline: PropTypes.string,
+    vote_average: PropTypes.number
 }
+
+MovieItem.defaultProps = {
+    img: 'https://risanb.com/img/react.png'
+}
+

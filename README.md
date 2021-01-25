@@ -4,4 +4,4 @@ Check **'branches'** to choose the home task.
 
 ***
 
-## ***Task 5 : Hooks***
+## ***Task 6 : Redux***

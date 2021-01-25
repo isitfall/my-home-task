@@ -1,4 +1,7 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState,  useCallback } from 'react';
+import { Provider } from 'react-redux';
+import store from "./Store/store";
+
 import AddMovie from './containers/MovieEditor/MovieEditor'
 import DeleteMovie from "./components/layouts/DeleteMovie/DeleteMovie";
 import Header from "./components/layouts/Header/Header";
@@ -44,33 +47,38 @@ export default function App() {
         setAddMovie(!addMovie)
     }
 
+
+
+
     return (
 
             <>
-                {addMovie
-                    ? <AddMovie isMovieEditor={editMovie} click={toggleAddMovie}/> //isMovieEditor prop as boolean
-                    : null}
-                {deleteMovie
-                    ? <DeleteMovie click = {toggleDeleteMovie}/>
-                    : null
-                }
-                <Header showMovieDetails={isShowMovieDetails}
-                    click={isShowMovieDetails
-                        ? showSearchPanel
-                        : toggleAddMovie
+                <Provider store={store}>
+                    <MovieListItemContext.Provider value={{
+                        toggleDeleteMovie,
+                        showMovieDetails,
+                        toggleMovieEditor
+                    }}>
+                    {addMovie
+                        ? <AddMovie isMovieEditor={editMovie} click={toggleAddMovie}/> //isMovieEditor prop as boolean
+                        : null}
+                    {deleteMovie
+                        ? <DeleteMovie click = {toggleDeleteMovie}/>
+                        : null
                     }
-                />
-                <MovieListItemContext.Provider value={{
-                    toggleDeleteMovie,
-                    showMovieDetails,
-                    toggleMovieEditor
-                }}>
-                    <ErrorBoundary>
-                        <MainSection />
-                    </ErrorBoundary>
-                </MovieListItemContext.Provider>
-                <Footer />
-            </>
+                    <Header showMovieDetails={isShowMovieDetails}
+                            click={isShowMovieDetails
+                                ? showSearchPanel
+                                : toggleAddMovie
+                            }
+                    />
+                        <ErrorBoundary>
+                            <MainSection />
+                        </ErrorBoundary>
+                    <Footer />
+                    </MovieListItemContext.Provider>
+                </Provider>
+           </>
     )
 
 }

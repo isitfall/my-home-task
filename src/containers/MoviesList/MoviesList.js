@@ -1,63 +1,33 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import { connect } from 'react-redux';
+import thunk from "redux-thunk";
+import { asyncActionsCreator, actionCreator } from "../../Store/actionCreators";
+
 import MovieItem from "../../components/UI/MovieItem/MovieItem";
-
-import pulpPic from '../../assets/images/MoviesList/PulpFict.png'
-import bohemianPic from '../../assets/images/MoviesList/Bohemian-Rhapsody-2018-movie-poster.jpg'
-import reservoirDogsPic from '../../assets/images/MoviesList/reservoir-dogs.jpg'
-
 import classes from './MoviesList.sass'
 
 
-export default function MoviesList(props) {
+const MoviesList = props => {
 
     const [state, setState] = useState({
-        movies: [
-            {
-                id: 1,
-                name: 'Pulp Fiction',
-                genre: "Action & Adventure",
-                year: 2004,
-                img: pulpPic
-            },
-            {
-                id: 2,
-                name: 'Bohemian Rhapsody',
-                genre: "Drama, Biography, Music",
-                year: 2017,
-                img: bohemianPic
-            },
-            {
-                id: 2,
-                name: 'Reservoir Dogs',
-                genre: "Oscar winning Movie",
-                year: 1994,
-                img: reservoirDogsPic
-            },
-            {
-                id: 4,
-                name: 'Pulp Fiction',
-                genre: "Action & Adventure",
-                year: 2004,
-                img: pulpPic
-            },
-            {
-                id: 5,
-                name: 'Bohemian Rhapsody',
-                genre: "Drama, Biography, Music",
-                year: 2017,
-                img: bohemianPic
-            },
-            {
-                id: 6,
-                name: 'Reservoir Dogs',
-                genre: "Oscar winning Movie",
-                year: 1994,
-                img: reservoirDogsPic
-            },
-        ]
+        movies: []
     })
 
+    function fetchMoviesList() {
+        fetch("http://localhost:4000/movies")
+            .then(response => response.json())
+            .then(body => body.data)
+            .then(data => {movies: data})
+    }
 
+
+
+    useEffect(() => {
+        fetch("http://localhost:4000/movies")
+            .then(response => response.json())
+            .then(body => body.data)
+            .then(data => setState({movies: data}))
+    }, [])
 
     return (
         <div className={classes.MoviesList}>
@@ -65,13 +35,29 @@ export default function MoviesList(props) {
                 return <MovieItem
                     key={elem.id}
                     id={elem.id}
-                    name={elem.name}
-                    genre={elem.genre}
-                    year={elem.year}
-                    img={elem.img}/>
+                    title={elem.title}
+                    genre={elem.genres}
+                    release_date={elem.release_date}
+                    img={elem.poster_path}
+                    overview={elem.overview}
+                    runtime={elem.runtime}
+                    tagline={elem.tagline}
+                    vote_average={elem.vote_average}
+                />
                 }
             )}
         </div>
     )
 
 }
+
+// const mapStateToProps = (state) => ({
+//     moviesList: state.moviesList
+// })
+//
+// const mapDispatchToProps = { actionCreator }
+// const mapDispatchToProps = { asyncActionsCreator }
+
+// export default connect(mapStateToProps, mapDispatchToProps)(MoviesList)
+
+export default MoviesList
