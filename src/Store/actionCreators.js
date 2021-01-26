@@ -1,17 +1,21 @@
-import ACTIONS from './actions';
+import actionsTypes from "./actionsTypes";
 
-const actionCreator = () => {
+export function fetchMovieList () {
+ return function (dispatch) {
+     const response = fetch("http://localhost:4000/movies").then(response => response.json())
+
+     dispatch({
+         type: actionsTypes.FETCH_MOVIES_LIST,
+         payload: response
+     })
+ }
+}
+
+export const testRunner = () => {
     return {
-        type: ACTIONS.FETCH_MOVIES_LIST,
+        type: actionsTypes.FETCH_MOVIES_STARTED,
         payload: {
-            text: "IT'S WORKS!"
+            title: 'its IN'
         }
     }
 }
-
-const asyncActionsCreator = () => (dispatch) => {
-    dispatch(actionCreator)
-}
-
-
-export { actionCreator, asyncActionsCreator }

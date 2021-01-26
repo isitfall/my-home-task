@@ -1,3 +1,5 @@
-const initialState = {}
+const initialState = {
+    moviesList: []
+}
 
 export default initialState
