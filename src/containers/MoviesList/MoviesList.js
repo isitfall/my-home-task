@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { connect } from 'react-redux';
-import { fetchMovieList, testRunner } from "../../Store/actionCreators";
+import { fetchMovieList } from "../../Store/actionCreators";
 
 import MovieItem from "../../components/UI/MovieItem/MovieItem";
 import classes from './MoviesList.sass'
@@ -9,21 +9,10 @@ import classes from './MoviesList.sass'
 
 const MoviesList = props => {
 
-    const [state, setState] = useState({
-        movies: []
-    })
-
-
-    useEffect(() => {
-        fetch("http://localhost:4000/movies")
-            .then(response => response.json())
-            .then(body => body.data)
-            .then(data => setState({movies: data}))
-    }, [])
-
     return (
         <div className={classes.MoviesList}>
-            {state.movies.map(elem => {
+            {props.movies
+                ? props.movies.map(elem => {
                 return <MovieItem
                     key={elem.id}
                     id={elem.id}
@@ -36,8 +25,8 @@ const MoviesList = props => {
                     tagline={elem.tagline}
                     vote_average={elem.vote_average}
                 />
-                }
-            )}
+            })
+            : null }
         </div>
     )
 
@@ -46,10 +35,8 @@ const MoviesList = props => {
 const mapStateToProps = (state) => ({
     movies: state.fetchMovies.moviesList
 })
-const mapDispatchToProps = {
-    fetchMovieList,
-    testRunner
-}
-export default connect(mapStateToProps, mapDispatchToProps)(MoviesList)
+
+
+export default connect(mapStateToProps, null)(MoviesList)
 
 // export default MoviesList

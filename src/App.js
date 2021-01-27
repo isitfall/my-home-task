@@ -59,23 +59,23 @@ export default function App() {
                         showMovieDetails,
                         toggleMovieEditor
                     }}>
-                    {addMovie
-                        ? <AddMovie isMovieEditor={editMovie} click={toggleAddMovie}/> //isMovieEditor prop as boolean
-                        : null}
-                    {deleteMovie
-                        ? <DeleteMovie click = {toggleDeleteMovie}/>
-                        : null
-                    }
-                    <Header showMovieDetails={isShowMovieDetails}
-                            click={isShowMovieDetails
-                                ? showSearchPanel
-                                : toggleAddMovie
-                            }
-                    />
-                        <ErrorBoundary>
-                            <MainSection />
-                        </ErrorBoundary>
-                    <Footer />
+                        {addMovie
+                            ? <AddMovie isMovieEditor={editMovie} click={toggleAddMovie}/> //isMovieEditor prop as boolean
+                            : null}
+                        {deleteMovie
+                            ? <DeleteMovie click = {toggleDeleteMovie}/>
+                            : null
+                        }
+                        <Header showMovieDetails={isShowMovieDetails}
+                                click={isShowMovieDetails
+                                    ? showSearchPanel
+                                    : toggleAddMovie
+                                }
+                        />
+                            <ErrorBoundary>
+                                <MainSection />
+                            </ErrorBoundary>
+                        <Footer />
                     </MovieListItemContext.Provider>
                 </Provider>
            </>

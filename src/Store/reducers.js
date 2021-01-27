@@ -7,22 +7,13 @@ const fetchMovies = (state = initialState, actions) => {
         case actionsTypes.FETCH_MOVIES_LIST :
             return {
                 ...state,
-                moviesList: [
-                    ...state.moviesList,
-                    actions.payload
-                ]
+                moviesList: actions.payload.movies.data
             }
-        case actionsTypes.FETCH_MOVIES_STARTED : {
-            return {
-                ...state,
-                payload: actions.payload
-            }
-        }
-        case 'dummy':
-            return {
-                ...state,
-                title: 'REDUX MASTER'
-            }
+        // case actionsTypes.FETCH_MOVIES_SORT_DOCUMENTARY :
+        //     return {
+        //         ...state,
+        //         moviesList: actions.payload.movies.data
+        //     }
         default: return state
     }
 }

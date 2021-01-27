@@ -1,6 +1,19 @@
 import React from 'react';
-import styles from './SearchCounter.sass'
+import {connect} from 'react-redux'
+import classes from './SearchCounter.sass'
 
-export default function SearchCounter(props) {
-    return <h2> <span>{props.counter || '39'}</span> movies found </h2>
+function SearchCounter(props) {
+    return <h2 className={classes.h2}>
+        <span>{
+            props.moviesListLength
+                ? props.moviesListLength.length
+                :'39'
+        }</span> movies found</h2>
 }
+
+const mapStateToProps = (state) => ({
+    moviesListLength: state.fetchMovies.moviesList
+})
+
+export default connect(mapStateToProps, null) (SearchCounter)
+
