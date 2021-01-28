@@ -43,7 +43,7 @@ export default function MovieItem(props) {
     }
 
     return (
-        <div className={classes.MovieItem}
+        <div className={` ${classes.MovieItem}` }
              onClick={context.showMovieDetails}
              onMouseEnter={onHoverHandler}
              onMouseLeave={onHoverHandler}
@@ -59,7 +59,7 @@ export default function MovieItem(props) {
                 </span>
             </div>
             <span className={classes.genre}>
-                {props.genre}
+                {props.genre.join(', ')}
             </span>
         </div>
     )

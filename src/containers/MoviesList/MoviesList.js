@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import { connect } from 'react-redux';
-import { fetchMovieList } from "../../Store/actionCreators";
 
 import MovieItem from "../../components/UI/MovieItem/MovieItem";
 import classes from './MoviesList.sass'
@@ -10,7 +9,7 @@ import classes from './MoviesList.sass'
 const MoviesList = props => {
 
     return (
-        <div className={classes.MoviesList}>
+        <div className={` ${classes.MoviesList}`}>
             {props.movies
                 ? props.movies.map(elem => {
                 return <MovieItem

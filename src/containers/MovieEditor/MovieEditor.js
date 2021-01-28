@@ -41,6 +41,7 @@ export default function MovieEditor(props) {
 
     function changeSelectHandler(e) {
         const {name, value} = e.target
+        console.log(state)
         setState(prevState => {
             return {
                 ...prevState,
@@ -71,38 +72,38 @@ export default function MovieEditor(props) {
                         title={'title'}
                         placeholder={'Title here'}
                         value={state.title}
-                        change = {changeSelectHandler}
+                        change = {e => changeSelectHandler(e)}
                     />
                     <InputDate
                         name={'date'}
                         title={'release date'}
                         placeholder={'Select Date'}
                         inputType={'date'}
-                        change = {changeSelectHandler}
+                        change = {e => changeSelectHandler(e)}
                     />
                     <InputText
                         name={'url'}
                         title={'movie url'}
                         placeholder={'Movie URL here'}
-                        change = {changeSelectHandler}
+                        change = {e => changeSelectHandler(e)}
                     />
                     <Select
                         name={'genre'}
                         title={'genre'}
                         selectValue={state.genre}
-                        change = {changeSelectHandler}
+                        change = {e => changeSelectHandler(e)}
                     />
                     <InputText
                         name={'overview'}
                         title={'overview'}
                         placeholder={'Overview here'}
-                        change = {changeSelectHandler}
+                        change = {e => changeSelectHandler(e)}
                     />
                     <InputText
                         name={'runtime'}
                         title={'runtime'}
                         placeholder={'Runtime here'}
-                        change = {changeSelectHandler}
+                        change = {e => changeSelectHandler(e)}
                     />
                     <BtnsFormEditor click={resetForm}
                     />

@@ -4,7 +4,7 @@ import ResultFilterItem from "../../UI/ResultFilterItem/ResultFilterItem";
 import classes from './ResultsFilter.sass'
 
 import actionsTypes from "../../../Store/actionsTypes";
-import {getMovieList} from "../../../Store/actionCreators";
+import {getMovieList, getMoviesSorted} from "../../../Store/actionCreators";
 
 function ResultFilter(props) {
 
@@ -37,7 +37,7 @@ function ResultFilter(props) {
     ])
 
     //по дефолту - при загрузке получим весь массив фильмов
-    useEffect(() => props.getMoviesList(), [])
+    useEffect(() => props.getMoviesSorted(menuList[0].action, menuList[0].title), [menuList[0].action])
 
 
     const clickHandler = (index) => {
@@ -45,7 +45,10 @@ function ResultFilter(props) {
 
         arr.forEach(elem => elem.isActive = false)
         arr[index].isActive = true
+        props.getMoviesSorted(arr[index].action, arr[index].title)
         setMenuList(() => arr)
+
+
     }
 
     return (
@@ -65,7 +68,7 @@ function ResultFilter(props) {
 
 const mapDispatchToProps = dispatch => {
     return {
-        getMoviesList: () => dispatch(getMovieList()),
+        getMoviesSorted: (actionType, title) => dispatch(getMoviesSorted(actionType, title))
     }
 }
 
