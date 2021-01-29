@@ -30,6 +30,16 @@ const fetchMovies = (state = initialState, actions) => {
                 ...state,
                 moviesList: actions.payload.movies
             }
+        case actionsTypes.POST_ADD_MOVIE:
+            return {
+                ...state,
+                moviesList: [...state.moviesList, actions.payload]
+            }
+        case actionsTypes.GET_MOVIE_BY_ID:
+            return {
+                ...state,
+                currentMovie: actions.payload
+            }
         default: return state
     }
 }

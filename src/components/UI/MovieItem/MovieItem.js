@@ -11,8 +11,6 @@ export default function MovieItem(props) {
     const [isShowMovieMenu, setIsShowMovieMenu] = useState(false)
     const context = useContext(MovieListItemContext)
 
-    // useEffect(() => console.log(props), [])
-
     function onHoverHandler() {
         if (isShowMovieMenu) {
             setIsShowMovieMenu(false)
@@ -21,7 +19,7 @@ export default function MovieItem(props) {
 
     }
 
-    function changeMenuHandler() {
+    function changeMenuHandler(e) {
         setIsShowMovieMenu(prevState => {
             return !prevState
         })

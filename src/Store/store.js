@@ -2,7 +2,7 @@ import {createStore, applyMiddleware, compose} from "redux";
 import thunk from "redux-thunk";
 import rootReducer from './reducers'
 
-import { getMoviesSorted } from "./actionCreators";
+import { getMoviesSorted, postTest } from "./actionCreators";
 import actionsTypes from "./actionsTypes";
 
 

@@ -8,7 +8,7 @@ export default function InputDate(props) {
             <span>{props.title}</span>
             <input type="date"
                    name={props.name}
-                   onChange={props.changeHandler}
+                   onChange={props.change}
                    value={props.value}
             />
         </label>

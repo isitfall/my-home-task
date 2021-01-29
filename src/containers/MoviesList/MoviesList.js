@@ -35,6 +35,7 @@ const mapStateToProps = (state) => ({
     movies: state.fetchMovies.moviesList
 })
 
+const mapDispatchToProps = dispatch => ({})
 
 export default connect(mapStateToProps, null)(MoviesList)
 

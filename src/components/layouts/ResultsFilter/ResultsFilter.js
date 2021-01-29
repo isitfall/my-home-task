@@ -4,7 +4,7 @@ import ResultFilterItem from "../../UI/ResultFilterItem/ResultFilterItem";
 import classes from './ResultsFilter.sass'
 
 import actionsTypes from "../../../Store/actionsTypes";
-import {getMovieList, getMoviesSorted} from "../../../Store/actionCreators";
+import { getMoviesSorted } from "../../../Store/actionCreators";
 
 function ResultFilter(props) {
 

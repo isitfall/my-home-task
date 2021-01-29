@@ -1,24 +1,33 @@
 import actionsTypes from "./actionsTypes";
 
-
-export function getMovieList () {
-    return function (dispatch) {
-        fetch("http://localhost:4000/movies")
-            .then(response => response.json())
-            .then(data => dispatch({
-                type: actionsTypes.FETCH_MOVIES_LIST,
-                payload: {
-                    movies: data,
-                }
-            }))
-    }
+export const postMovie = (data) => dispatch => {
+    fetch("http://localhost:4000/movies", {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        method : 'POST',
+        body: JSON.stringify({
+            title: data.title,
+            poster_path: data.movieUrl,
+            overview: data.overview,
+            release_date: data.releaseDate,
+            runtime: +data.runtime,
+            genres: [data.genre]
+        })
+    })
+        .then(res => res.json())
+        .then(responseBody => dispatch({
+            type: actionsTypes.POST_ADD_MOVIE,
+            payload: responseBody
+        }))
+        .catch(res => console.log(res))
 }
 
 export function getMoviesSorted(actionType, title) {
     return function (dispatch) {
         fetch("http://localhost:4000/movies")
             .then(response => response.json())
-            // .then(body => )
             .then(data => {
                 if (title === 'All') {
                     return  dispatch({
@@ -29,8 +38,6 @@ export function getMoviesSorted(actionType, title) {
                     })
                 } else {
                     const arr = data.data.filter((item) =>  item.genres.includes(title))
-                    console.log(actionType, title)
-                    console.log(arr)
                     return dispatch({
                         type: actionType,
                         payload: {
@@ -40,5 +47,33 @@ export function getMoviesSorted(actionType, title) {
                 }
 
             })
+            .catch(res => console.log(res.status))
+    }
+}
+
+
+//остановился тут
+export function getMovieById(id) {
+    return function (dispatch) {
+        fetch(`http://localhost:4000/movies/${id}`)
+            .then(res => res.json())
+            .then(data => dispatch({
+                type: actionsTypes.GET_MOVIE_BY_ID,
+                payload: data
+            }))
+    }
+}
+
+export function putMovie(id) {
+    return function(dispatch) {
+        fetch("http://localhost:4000/movies", {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: 'PUT',
+            body: null
+        })
+            .then(res => console.log(res))
     }
 }

@@ -7,12 +7,12 @@ export default function BtnsFormEditor(props) {
     return (
         <div className={classes.wrapper}>
             <Button
-                styles={classes.addBtn}
+                styles={classes.removeBtn}
                 title={'reset'}
                 click={props.click}
             />
             <Button
-                styles={classes.removeBtn}
+                styles={classes.addBtn}
                 title={'save'}
             />
         </div>

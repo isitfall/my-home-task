@@ -10,15 +10,15 @@ export default function InputText(props) {
                    placeholder={props.placeholder}
                    id={props.name}
                    type='text'
-                   onChange={props.changeHandler}
-                   value={props.value}
+                   onChange={props.change}
+                   value={props.inputValue}
             />
         </label>
     )
 }
 
 InputText.propTypes = {
-    value: PropTypes.oneOfType([
+    inputValue: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number
     ]),

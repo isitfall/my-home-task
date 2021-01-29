@@ -16,8 +16,10 @@ export default function App() {
     const [addMovie, setAddMovie] = useState(false);
     const [deleteMovie, setDeleteMovie] = useState(false)
 
-    const showMovieDetails = useCallback(() => {
-        setIsShowMovieDetails(value => true)
+    const showMovieDetails = useCallback((e) => {
+        if (e.target.className.includes('MovieItem') || e.target.tagName === 'IMG') {
+            setIsShowMovieDetails(value => true)
+        }
     }, [isShowMovieDetails])
 
     const showSearchPanel = useCallback(() => {
@@ -42,7 +44,7 @@ export default function App() {
     }
 
 
-    function toggleAddMovie() {
+    function toggleAddMovie(e) {
         toggleHiddenOverflow()
         setAddMovie(!addMovie)
     }
@@ -60,7 +62,7 @@ export default function App() {
                         toggleMovieEditor
                     }}>
                         {addMovie
-                            ? <AddMovie isMovieEditor={editMovie} click={toggleAddMovie}/> //isMovieEditor prop as boolean
+                            ? <AddMovie isMovieEditor={editMovie} click={editMovie ? toggleMovieEditor : toggleAddMovie}/> //isMovieEditor prop as boolean
                             : null}
                         {deleteMovie
                             ? <DeleteMovie click = {toggleDeleteMovie}/>

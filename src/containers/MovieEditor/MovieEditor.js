@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
+import {connect} from 'react-redux';
 
 import classes from './MovieEditor.sass'
 import PropTypes from 'prop-types'
@@ -12,9 +13,9 @@ import ExitButton from "../../components/UI/ExitButton/ExitButton";
 import MainTitle from "../../components/UI/MainTitle/MainTitle";
 import MovieId from "../../components/UI/MovieId/MovieId";
 
+import { postMovie } from "../../Store/actionCreators";
 
-
-export default function MovieEditor(props) {
+function MovieEditor(props) {
 
     const [state, setState] = useState({
             title : '',
@@ -24,7 +25,7 @@ export default function MovieEditor(props) {
             overview: '',
             runtime: '',
         })
-    const form = useRef(null)
+
 
     function resetForm() {
         setState(() =>({
@@ -39,15 +40,23 @@ export default function MovieEditor(props) {
     }
 
 
-    function changeSelectHandler(e) {
+    function changeHandler(e) {
         const {name, value} = e.target
-        console.log(state)
         setState(prevState => {
             return {
                 ...prevState,
                 [name]: value
             }
         })
+    }
+
+    function submitForm(e) {
+        e.preventDefault();
+
+        const data = {...state}
+        props.postMovie(data)
+
+        resetForm()
     }
 
 
@@ -62,48 +71,50 @@ export default function MovieEditor(props) {
                     ? 'Edit Movie'
                     : 'Add Movie'}
                 </MainTitle>
-                <form ref={form} onSubmit={event => {
-                    event.preventDefault();
-                    console.log(state)
-                }}>
+                <form onSubmit={props.isMovieEditor ? null : submitForm}>
                     {props.isMovieEditor ? <MovieId />  : null}
                     <InputText
                         name={'title'}
                         title={'title'}
                         placeholder={'Title here'}
-                        value={state.title}
-                        change = {e => changeSelectHandler(e)}
+                        inputValue={state.title}
+                        change = {changeHandler}
                     />
                     <InputDate
-                        name={'date'}
+                        name={'releaseDate'}
                         title={'release date'}
                         placeholder={'Select Date'}
                         inputType={'date'}
-                        change = {e => changeSelectHandler(e)}
+                        inputValue={state.releaseDate}
+                        change = {changeHandler}
                     />
                     <InputText
-                        name={'url'}
+                        name={'movieUrl'}
                         title={'movie url'}
                         placeholder={'Movie URL here'}
-                        change = {e => changeSelectHandler(e)}
+                        inputValue={state.movieUrl}
+                        change = {changeHandler}
                     />
                     <Select
                         name={'genre'}
                         title={'genre'}
                         selectValue={state.genre}
-                        change = {e => changeSelectHandler(e)}
+                        inputValue={state.genre}
+                        change = {changeHandler}
                     />
                     <InputText
                         name={'overview'}
                         title={'overview'}
                         placeholder={'Overview here'}
-                        change = {e => changeSelectHandler(e)}
+                        inputValue={state.overview}
+                        change = {changeHandler}
                     />
                     <InputText
                         name={'runtime'}
                         title={'runtime'}
                         placeholder={'Runtime here'}
-                        change = {e => changeSelectHandler(e)}
+                        inputValue={state.runtime}
+                        change = {changeHandler}
                     />
                     <BtnsFormEditor click={resetForm}
                     />
@@ -114,6 +125,8 @@ export default function MovieEditor(props) {
 
 }
 
+
+
 MovieEditor.propTypes = {
     isMovieEditor: PropTypes.bool
 }
@@ -121,3 +134,9 @@ MovieEditor.propTypes = {
 MovieEditor.defaultProps = {
     isMovieEditor: false
 }
+
+const mapDispatchToProps = dispatch => ({
+    postMovie: data => dispatch(postMovie(data))   //POST method to add Movie
+})
+
+export default connect(null, mapDispatchToProps) (MovieEditor)
