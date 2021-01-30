@@ -4,7 +4,7 @@ import ResultFilterItem from "../../UI/ResultFilterItem/ResultFilterItem";
 import classes from './ResultsFilter.sass'
 
 import actionsTypes from "../../../Store/actionsTypes";
-import { getMoviesSorted } from "../../../Store/actionCreators";
+import { getMoviesSorted, showMoviesSorted } from "../../../Store/actionCreators";
 
 function ResultFilter(props) {
 
@@ -45,10 +45,8 @@ function ResultFilter(props) {
 
         arr.forEach(elem => elem.isActive = false)
         arr[index].isActive = true
-        props.getMoviesSorted(arr[index].action, arr[index].title)
+        props.showMoviesSorted(menuList[index].title)
         setMenuList(() => arr)
-
-
     }
 
     return (
@@ -68,7 +66,8 @@ function ResultFilter(props) {
 
 const mapDispatchToProps = dispatch => {
     return {
-        getMoviesSorted: (actionType, title) => dispatch(getMoviesSorted(actionType, title))
+        getMoviesSorted: (actionType, title) => dispatch(getMoviesSorted(actionType, title)),
+        showMoviesSorted: title => dispatch(showMoviesSorted(title))
     }
 }
 

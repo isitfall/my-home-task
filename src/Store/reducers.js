@@ -7,28 +7,37 @@ const fetchMovies = (state = initialState, actions) => {
         case actionsTypes.FETCH_MOVIES_LIST :
             return {
                 ...state,
-                moviesList: actions.payload.movies.data
+                moviesList: actions.payload.movies.data,
+                moviesToShow: actions.payload.moviesToShow
             }
-        case actionsTypes.FETCH_MOVIES_SORT_DOCUMENTARY :
+        case actionsTypes.SHOW_MOVIES:
             return {
                 ...state,
-                moviesList: actions.payload.movies
+                moviesToShow: 'All'
             }
-        case actionsTypes.FETCH_MOVIES_SORT_HORROR:
+        case actionsTypes.SHOW_MOVIES_SORT_DOCUMENTARY:
             return {
                 ...state,
-                moviesList: actions.payload.movies
+                documentaryMoviesList: state.moviesList.filter(movie => movie.genres.includes('Documentary')),
+                moviesToShow: 'Documentary'
             }
-        case actionsTypes.FETCH_MOVIES_SORT_COMEDY:
-            console.log(actions.payload.movies)
+        case actionsTypes.SHOW_MOVIES_SORT_COMEDY:
             return {
                 ...state,
-                moviesList: actions.payload.movies
+                comedyMoviesList: state.moviesList.filter(movie => movie.genres.includes('Comedy')),
+                moviesToShow: 'Comedy'
             }
-        case actionsTypes.FETCH_MOVIES_SORT_CRIME:
+        case actionsTypes.SHOW_MOVIES_SORT_HORROR:
             return {
                 ...state,
-                moviesList: actions.payload.movies
+                horrorMoviesList: state.moviesList.filter(movie => movie.genres.includes('Horror')),
+                moviesToShow: 'Horror'
+            }
+        case actionsTypes.SHOW_MOVIES_SORT_CRIME:
+            return {
+                ...state,
+                crimeMoviesList: state.moviesList.filter(movie => movie.genres.includes('Crime')),
+                moviesToShow: 'Crime'
             }
         case actionsTypes.POST_ADD_MOVIE:
             return {

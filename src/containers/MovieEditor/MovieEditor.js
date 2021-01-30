@@ -25,9 +25,12 @@ function MovieEditor(props) {
             overview: '',
             runtime: '',
         })
+    const [isInvalid, setIsInvalid] = useState(false)
 
 
-    function resetForm() {
+    function resetForm(e) {
+        // e.preventDefault()
+
         setState(() =>({
             title : '',
             releaseDate: '',
@@ -42,6 +45,11 @@ function MovieEditor(props) {
 
     function changeHandler(e) {
         const {name, value} = e.target
+
+        if (name === 'genre') {
+            setIsInvalid(false)
+        }
+
         setState(prevState => {
             return {
                 ...prevState,
@@ -51,12 +59,22 @@ function MovieEditor(props) {
     }
 
     function submitForm(e) {
+        const {name, value} = e.target
+
         e.preventDefault();
 
-        const data = {...state}
-        props.postMovie(data)
+        setIsInvalid(false)
 
-        resetForm()
+        //ТУТ НАДО КАК-ТО СОСЛАТЬСЯ НА SELECT
+        if (name === 'genre' && value === 'selectGenre') {
+            setIsInvalid(true)
+            return false
+        } else {
+            const data = {...state}
+            props.postMovie(data)
+
+            resetForm()
+        }
     }
 
 
@@ -101,6 +119,7 @@ function MovieEditor(props) {
                         selectValue={state.genre}
                         inputValue={state.genre}
                         change = {changeHandler}
+                        isInvalid={isInvalid}
                     />
                     <InputText
                         name={'overview'}

@@ -11,19 +11,22 @@ export default function Select (props) {
                     id={props.name}
                     value={props.selectValue}
                     onChange={props.change}
+                    className={props.isInvalid ? classes.errorSelect : null}
             >
                 <option value="selectGenre">Select Genre</option>
-                <option value="Drama">Drama</option>
+                <option value="Documentary">Documentary</option>
                 <option value="Comedy">Comedy</option>
-                <option value="Fantasy">Fantasy</option>
-                <option value="Action">Action</option>
+                <option value="Horror">Horror</option>
+                <option value="Crime">Crime</option>
             </select>
+            {props.isInvalid ? <p className={classes.errorParagraph}>Select as least one genre to processed</p> : null}
         </label>
 
     )
 }
 
 Select.propTypes = {
+    isInvalid: PropTypes.bool,
     name: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     placeholder: PropTypes.string,

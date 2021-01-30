@@ -1,5 +1,20 @@
 import actionsTypes from "./actionsTypes";
 
+export const showMoviesSorted = (title) => {
+    switch(title) {
+        case 'All':
+            return {type: actionsTypes.SHOW_MOVIES}
+        case 'Documentary':
+            return {type: actionsTypes.SHOW_MOVIES_SORT_DOCUMENTARY}
+        case 'Comedy':
+            return {type: actionsTypes.SHOW_MOVIES_SORT_COMEDY}
+        case 'Horror':
+            return {type: actionsTypes.SHOW_MOVIES_SORT_HORROR}
+        case 'Crime':
+            return {type: actionsTypes.SHOW_MOVIES_SORT_CRIME}
+    }
+}
+
 export const postMovie = (data) => dispatch => {
     fetch("http://localhost:4000/movies", {
         headers: {
@@ -33,7 +48,8 @@ export function getMoviesSorted(actionType, title) {
                     return  dispatch({
                         type: actionsTypes.FETCH_MOVIES_LIST,
                         payload: {
-                            movies: data
+                            movies: data,
+                            moviesToShow: 'All'
                         }
                     })
                 } else {

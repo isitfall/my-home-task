@@ -1,6 +1,5 @@
 import React, { useState,  useCallback } from 'react';
-import { Provider } from 'react-redux';
-import store from "./Store/store";
+import { connect } from 'react-redux';
 
 import AddMovie from './containers/MovieEditor/MovieEditor'
 import DeleteMovie from "./components/layouts/DeleteMovie/DeleteMovie";
@@ -10,7 +9,9 @@ import Footer from "./components/layouts/Footer/Footer";
 import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
 import { MovieListItemContext } from './Context/Context';
 
-export default function App() {
+import { getMovieById } from "./Store/actionCreators";
+
+function App(props) {
     const [editMovie, setEditMovie] = useState(false);
     const [isShowMovieDetails, setIsShowMovieDetails] = useState(false);
     const [addMovie, setAddMovie] = useState(false);
@@ -55,32 +56,37 @@ export default function App() {
     return (
 
             <>
-                <Provider store={store}>
-                    <MovieListItemContext.Provider value={{
-                        toggleDeleteMovie,
-                        showMovieDetails,
-                        toggleMovieEditor
-                    }}>
-                        {addMovie
-                            ? <AddMovie isMovieEditor={editMovie} click={editMovie ? toggleMovieEditor : toggleAddMovie}/> //isMovieEditor prop as boolean
-                            : null}
-                        {deleteMovie
-                            ? <DeleteMovie click = {toggleDeleteMovie}/>
-                            : null
-                        }
-                        <Header showMovieDetails={isShowMovieDetails}
-                                click={isShowMovieDetails
-                                    ? showSearchPanel
-                                    : toggleAddMovie
-                                }
-                        />
-                            <ErrorBoundary>
-                                <MainSection />
-                            </ErrorBoundary>
-                        <Footer />
-                    </MovieListItemContext.Provider>
-                </Provider>
+                <MovieListItemContext.Provider value={{
+                    toggleDeleteMovie,
+                    showMovieDetails,
+                    toggleMovieEditor
+                }}>
+                    {addMovie
+                        ? <AddMovie isMovieEditor={editMovie} click={editMovie ? toggleMovieEditor : toggleAddMovie}/> //isMovieEditor prop as boolean
+                        : null}
+                    {deleteMovie
+                        ? <DeleteMovie click = {toggleDeleteMovie}/>
+                        : null
+                    }
+                    <Header showMovieDetails={isShowMovieDetails}
+                            click={isShowMovieDetails
+                                ? showSearchPanel
+                                : toggleAddMovie
+                            }
+                    />
+                        <ErrorBoundary>
+                            <MainSection />
+                        </ErrorBoundary>
+                    <Footer />
+                </MovieListItemContext.Provider>
            </>
     )
 
 }
+
+
+const mapDispatchToProps = dispatch => ({
+    getMovieById: movieId => dispatch(getMovieById(movieId)) //GET just one movie by movieID
+})
+
+export default connect(null , mapDispatchToProps ) (App)
