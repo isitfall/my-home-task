@@ -10,6 +10,7 @@ export default function MovieMenu(props) {
 
     return (
         <div className={classes.MovieMenu}>
+            {console.log(props.movieId)}
             <ExitButton click={props.click} large={props.large} tickness={props.tickness}/>
             <MovieMenuItem click={context.toggleMovieEditor}>Edit</MovieMenuItem>
             <MovieMenuItem click={context.toggleDeleteMovie}>Delete</MovieMenuItem>
@@ -18,5 +19,6 @@ export default function MovieMenu(props) {
 }
 
 MovieMenu.propTypes = {
-    click: PropTypes.func
+    click: PropTypes.func,
+    movieId: PropTypes.number
 }

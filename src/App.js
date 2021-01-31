@@ -40,6 +40,7 @@ function App(props) {
 
     function toggleMovieEditor() {
         toggleHiddenOverflow();
+        console.log('toggleMovieEditor() is running...')
         setEditMovie(currentVal => !currentVal)
         setAddMovie(currentVal => !currentVal)
     }

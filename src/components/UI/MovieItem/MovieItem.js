@@ -31,7 +31,7 @@ export default function MovieItem(props) {
 
         if (hovered) {
             if (isShowMovieMenu) {
-                return <MovieMenu large={10} tickness={1} click={changeMenuHandler}/>
+                return <MovieMenu large={10} tickness={1} click={changeMenuHandler} movieId={props.id}/>
             } else {
                 return <DotsIcon click={changeMenuHandler}/>
             }
