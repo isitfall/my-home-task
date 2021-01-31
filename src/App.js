@@ -38,9 +38,9 @@ function App(props) {
         setDeleteMovie(value => !value )
     }
 
-    function toggleMovieEditor() {
+    function toggleMovieEditor(id) {
         toggleHiddenOverflow();
-        console.log('toggleMovieEditor() is running...')
+        props.getMovieById(id)
         setEditMovie(currentVal => !currentVal)
         setAddMovie(currentVal => !currentVal)
     }
@@ -87,7 +87,7 @@ function App(props) {
 
 
 const mapDispatchToProps = dispatch => ({
-    getMovieById: movieId => dispatch(getMovieById(movieId)) //GET just one movie by movieID
+    getMovieById: movieId => dispatch(getMovieById(movieId)) //GET just one movie by movieID,
 })
 
 export default connect(null , mapDispatchToProps ) (App)

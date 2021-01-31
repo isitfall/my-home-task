@@ -77,6 +77,7 @@ export function getMovieById(id) {
                 type: actionsTypes.GET_MOVIE_BY_ID,
                 payload: data
             }))
+            .catch(err => console.log(err))
     }
 }
 
