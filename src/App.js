@@ -9,7 +9,7 @@ import Footer from "./components/layouts/Footer/Footer";
 import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
 import { MovieListItemContext } from './Context/Context';
 
-import { getMovieById } from "./Store/actionCreators";
+import { getMovieById, putMovie } from "./Store/actionCreators";
 
 function App(props) {
     const [editMovie, setEditMovie] = useState(false);
@@ -17,9 +17,10 @@ function App(props) {
     const [addMovie, setAddMovie] = useState(false);
     const [deleteMovie, setDeleteMovie] = useState(false)
 
-    const showMovieDetails = useCallback((e) => {
+    const showMovieDetails = useCallback((e, movieId) => {
         if (e.target.className.includes('MovieItem') || e.target.tagName === 'IMG') {
             setIsShowMovieDetails(value => true)
+            props.getMovieById(movieId)
         }
     }, [isShowMovieDetails])
 
@@ -58,9 +59,9 @@ function App(props) {
 
             <>
                 <MovieListItemContext.Provider value={{
+                    toggleMovieEditor,
                     toggleDeleteMovie,
-                    showMovieDetails,
-                    toggleMovieEditor
+                    showMovieDetails
                 }}>
                     {addMovie
                         ? <AddMovie isMovieEditor={editMovie} click={editMovie ? toggleMovieEditor : toggleAddMovie}/> //isMovieEditor prop as boolean
@@ -87,7 +88,8 @@ function App(props) {
 
 
 const mapDispatchToProps = dispatch => ({
-    getMovieById: movieId => dispatch(getMovieById(movieId)) //GET just one movie by movieID,
+    getMovieById: movieId => dispatch(getMovieById(movieId)), //GET just one movie by movieID,
+    putMovie: data => dispatch(putMovie(data))
 })
 
 export default connect(null , mapDispatchToProps ) (App)

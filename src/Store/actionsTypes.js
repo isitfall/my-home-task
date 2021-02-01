@@ -8,7 +8,6 @@ const actionsTypes = {
     GET_MOVIE_BY_ID: 'GET_MOVIE_BY_ID',
     POST_ADD_MOVIE: 'POST_ADD_MOVIE',
     PUT_UPDATE_MOVIE: 'PUT_UPDATE_MOVIE',
-
 }
 
 export default actionsTypes

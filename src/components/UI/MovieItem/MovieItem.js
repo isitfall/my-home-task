@@ -42,7 +42,7 @@ export default function MovieItem(props) {
 
     return (
         <div className={` ${classes.MovieItem}` }
-             onClick={context.showMovieDetails}
+             onClick={(e) => context.showMovieDetails(e, props.id)}
              onMouseEnter={onHoverHandler}
              onMouseLeave={onHoverHandler}
         >

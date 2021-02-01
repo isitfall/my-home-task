@@ -23,12 +23,9 @@ export const postMovie = (data) => dispatch => {
         },
         method : 'POST',
         body: JSON.stringify({
-            title: data.title,
-            poster_path: data.movieUrl,
-            overview: data.overview,
-            release_date: data.releaseDate,
+            ...data,
             runtime: +data.runtime,
-            genres: [data.genre]
+            genres: [data.genres]
         })
     })
         .then(res => res.json())
@@ -36,7 +33,7 @@ export const postMovie = (data) => dispatch => {
             type: actionsTypes.POST_ADD_MOVIE,
             payload: responseBody
         }))
-        .catch(res => console.log(res))
+        .catch(err => console.log(err))
 }
 
 export function getMoviesSorted(actionType, title) {
@@ -68,7 +65,6 @@ export function getMoviesSorted(actionType, title) {
 }
 
 
-//остановился тут
 export function getMovieById(id) {
     return function (dispatch) {
         fetch(`http://localhost:4000/movies/${id}`)
@@ -81,7 +77,7 @@ export function getMovieById(id) {
     }
 }
 
-export function putMovie(id) {
+export function putMovie(data) {
     return function(dispatch) {
         fetch("http://localhost:4000/movies", {
             headers: {
@@ -89,8 +85,14 @@ export function putMovie(id) {
                 'Content-Type': 'application/json'
             },
             method: 'PUT',
-            body: null
+            body: JSON.stringify({...data})
         })
-            .then(res => console.log(res))
+            .then(res => res.json())
+            .then(body => dispatch({
+                type: actionsTypes.PUT_UPDATE_MOVIE,
+                payload: body
+            }))
+            .catch(err=>console.log(err))
     }
 }
+

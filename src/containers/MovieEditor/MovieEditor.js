@@ -19,26 +19,27 @@ function MovieEditor(props) {
 
     const [state, setState] = useState({
             title : '',
-            releaseDate: '',
-            movieUrl: '',
-            genre: 'selectGenre',
+            poster_path: '',
+            release_date: '',
+            genres: 'selectGenre',
             overview: '',
             runtime: '',
         })
     const [isInvalid, setIsInvalid] = useState(false)
 
 
-    function resetForm(e) {
-        // e.preventDefault()
+    function resetForm() {
 
-        setState(() =>({
-            title : '',
-            releaseDate: '',
-            movieUrl: '',
-            genre: 'selectGenre',
-            overview: '',
-            runtime: '',
-            })
+        setState(prevState => {
+            return {
+                title : '',
+                poster_path: '',
+                release_date: new Date(null),
+                genres: 'selectGenre',
+                overview: '',
+                runtime: '',
+                }
+            }
         )
     }
 
@@ -46,7 +47,7 @@ function MovieEditor(props) {
     function changeHandler(e) {
         const {name, value} = e.target
 
-        if (name === 'genre') {
+        if (name === 'genres') {
             setIsInvalid(false)
         }
 
@@ -65,8 +66,8 @@ function MovieEditor(props) {
 
         setIsInvalid(false)
 
-        //ТУТ НАДО КАК-ТО СОСЛАТЬСЯ НА SELECT
-        if (name === 'genre' && value === 'selectGenre') {
+
+        if ( state.genres === 'selectGenre') {
             setIsInvalid(true)
             return false
         } else {
@@ -99,25 +100,25 @@ function MovieEditor(props) {
                         change = {changeHandler}
                     />
                     <InputDate
-                        name={'releaseDate'}
+                        name={'release_date'}
                         title={'release date'}
                         placeholder={'Select Date'}
                         inputType={'date'}
-                        inputValue={state.releaseDate}
+                        inputValue={state.release_date}
                         change = {changeHandler}
                     />
                     <InputText
-                        name={'movieUrl'}
+                        name={'poster_path'}
                         title={'movie url'}
                         placeholder={'Movie URL here'}
-                        inputValue={state.movieUrl}
+                        inputValue={state.poster_path}
                         change = {changeHandler}
                     />
                     <Select
-                        name={'genre'}
+                        name={'genres'}
                         title={'genre'}
-                        selectValue={state.genre}
-                        inputValue={state.genre}
+                        selectValue={state.genres}
+                        inputValue={state.genres}
                         change = {changeHandler}
                         isInvalid={isInvalid}
                     />

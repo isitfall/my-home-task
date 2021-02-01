@@ -49,6 +49,22 @@ const fetchMovies = (state = initialState, actions) => {
                 ...state,
                 currentMovie: actions.payload
             }
+        case actionsTypes.PUT_UPDATE_MOVIE:
+
+            const newMoviesList = []
+
+            for (let key of state.moviesList) {
+                if (key.id === actions.payload.id) {
+                    key = actions.payload
+                }
+
+                newMoviesList.push(key)
+            }
+
+            return {
+                ...state,
+                moviesList: newMoviesList
+            }
         default: return state
     }
 }
