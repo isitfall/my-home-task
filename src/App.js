@@ -9,7 +9,7 @@ import Footer from "./components/layouts/Footer/Footer";
 import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
 import { MovieListItemContext } from './Context/Context';
 
-import { getMovieById, putMovie } from "./Store/actionCreators";
+import { getMovieById, putMovie, deleteMovie } from "./Store/actionCreators";
 
 function App(props) {
     const [editMovie, setEditMovie] = useState(false);
@@ -34,7 +34,15 @@ function App(props) {
             : document.body.style.overflow = 'hidden'
     }
 
-    function toggleDeleteMovie() {
+    function toggleDeleteMovie(movieId) {
+        toggleHiddenOverflow();
+        setDeleteMovie(value => !value )
+
+        props.getMovieById(movieId)
+    }
+
+    function confirmDelete(movieId) {
+        props.deleteMovie(movieId)
         toggleHiddenOverflow();
         setDeleteMovie(value => !value )
     }
@@ -61,13 +69,13 @@ function App(props) {
                 <MovieListItemContext.Provider value={{
                     toggleMovieEditor,
                     toggleDeleteMovie,
-                    showMovieDetails
+                    showMovieDetails,
                 }}>
                     {addMovie
                         ? <AddMovie isMovieEditor={editMovie} click={editMovie ? toggleMovieEditor : toggleAddMovie}/> //isMovieEditor prop as boolean
                         : null}
                     {deleteMovie
-                        ? <DeleteMovie click = {toggleDeleteMovie}/>
+                        ? <DeleteMovie click = {toggleDeleteMovie} onConfirm={() => confirmDelete(props.currentMovie.id)}/>
                         : null
                     }
                     <Header showMovieDetails={isShowMovieDetails}
@@ -86,10 +94,15 @@ function App(props) {
 
 }
 
+const mapStateToProps = state => ({
+    currentMovie: state.fetchMovies.currentMovie
+})
+
 
 const mapDispatchToProps = dispatch => ({
     getMovieById: movieId => dispatch(getMovieById(movieId)), //GET just one movie by movieID,
-    putMovie: data => dispatch(putMovie(data))
+    putMovie: data => dispatch(putMovie(data)), //UPDATE just one movie by movieID,
+    deleteMovie: movieId => dispatch(deleteMovie(movieId)),
 })
 
-export default connect(null , mapDispatchToProps ) (App)
+export default connect(mapStateToProps , mapDispatchToProps ) (App)

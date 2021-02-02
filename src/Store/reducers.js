@@ -65,6 +65,16 @@ const fetchMovies = (state = initialState, actions) => {
                 ...state,
                 moviesList: newMoviesList
             }
+        case actionsTypes.FILTER_BY_RELEASE_DATE:
+            return {
+                ...state,
+            }
+        case actionsTypes.DELETE_MOVIE:
+            return {
+                ...state,
+                moviesList: [...state.moviesList].filter(movie => movie.id !== actions.payload),
+                currentMovie: null
+            }
         default: return state
     }
 }

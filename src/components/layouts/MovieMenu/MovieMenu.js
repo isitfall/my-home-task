@@ -13,10 +13,9 @@ function MovieMenu(props) {
 
     return (
         <div className={classes.MovieMenu}>
-            {console.log(props.movieId)}
             <ExitButton click={props.click} large={props.large} tickness={props.tickness}/>
             <MovieMenuItem click={() => context.toggleMovieEditor(props.movieId)}>Edit</MovieMenuItem>
-            <MovieMenuItem click={context.toggleDeleteMovie}>Delete</MovieMenuItem>
+            <MovieMenuItem click={() => context.toggleDeleteMovie(props.movieId)}>Delete</MovieMenuItem>
         </div>
     )
 }

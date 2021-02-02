@@ -18,12 +18,16 @@ export default function DeleteMovie(props) {
                     display: 'flex',
                     justifyContent: 'flex-end'
                 }}>
-                    <Button click={props.click} title={'confirm'} styles={classes.button}/>
+                    <Button click={props.onConfirm} title={'confirm'} styles={classes.button}/>
                 </div>
 
             </div>
         </BlurBackground>
     )
 }
+
+const mapStateToProps = state => ({
+    currentMovie: state.fetchMovies.currentMovie
+})
 
 

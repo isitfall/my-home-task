@@ -5,6 +5,7 @@ import classes from './ResultsFilter.sass'
 
 import actionsTypes from "../../../Store/actionsTypes";
 import { getMoviesSorted, showMoviesSorted } from "../../../Store/actionCreators";
+import {sortMoviesByReleaseDate} from "../../../Store/actions";
 
 function ResultFilter(props) {
 
@@ -37,7 +38,7 @@ function ResultFilter(props) {
     ])
 
     //по дефолту - при загрузке получим весь массив фильмов
-    useEffect(() => props.getMoviesSorted(menuList[0].action, menuList[0].title), [menuList[0].action])
+    useEffect(() => {props.getMoviesSorted(menuList[0].action, menuList[0].title)}, [menuList[0].action])
 
 
     const clickHandler = (index) => {
@@ -67,7 +68,7 @@ function ResultFilter(props) {
 const mapDispatchToProps = dispatch => {
     return {
         getMoviesSorted: (actionType, title) => dispatch(getMoviesSorted(actionType, title)),
-        showMoviesSorted: title => dispatch(showMoviesSorted(title))
+        showMoviesSorted: title => dispatch(showMoviesSorted(title)),
     }
 }
 

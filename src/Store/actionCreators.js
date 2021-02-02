@@ -96,3 +96,27 @@ export function putMovie(data) {
     }
 }
 
+export function deleteMovie(id) {
+    return function (dispatch) {
+        fetch(`http://localhost:4000/movies/${id}`, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: 'DELETE',
+        })
+            .then(dispatch({
+                type: actionsTypes.DELETE_MOVIE,
+                payload: id
+            }))
+            .catch(err => console.log(err))
+    }
+}
+
+
+
+
+
+
+
+

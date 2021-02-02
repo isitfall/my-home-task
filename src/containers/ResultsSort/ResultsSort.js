@@ -1,5 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
+
 import classes from './ResultsSort.sass'
+
 
 export default function ResultsSort (props) {
 
@@ -30,3 +32,5 @@ export default function ResultsSort (props) {
     )
 
 }
+
+
