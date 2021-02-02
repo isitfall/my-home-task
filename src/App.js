@@ -35,10 +35,12 @@ function App(props) {
     }
 
     function toggleDeleteMovie(movieId) {
-        toggleHiddenOverflow();
-        setDeleteMovie(value => !value )
+        if (!deleteMovie) {
+            props.getMovieById(movieId)
 
-        props.getMovieById(movieId)
+            toggleHiddenOverflow()
+            setDeleteMovie(value => !value )
+        }
     }
 
     function confirmDelete(movieId) {
@@ -48,10 +50,17 @@ function App(props) {
     }
 
     function toggleMovieEditor(id) {
-        toggleHiddenOverflow();
-        props.getMovieById(id)
-        setEditMovie(currentVal => !currentVal)
-        setAddMovie(currentVal => !currentVal)
+
+        if (!addMovie) {
+            props.getMovieById(id)
+            toggleHiddenOverflow();
+            setEditMovie(currentVal => !currentVal)
+            setAddMovie(currentVal => !currentVal)
+        } else {
+            toggleHiddenOverflow();
+            setEditMovie(currentVal => !currentVal)
+            setAddMovie(currentVal => !currentVal)
+        }
     }
 
 

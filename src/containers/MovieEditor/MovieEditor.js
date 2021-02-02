@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {connect} from 'react-redux';
 
 import classes from './MovieEditor.sass'
@@ -27,9 +27,26 @@ function MovieEditor(props) {
         })
     const [isInvalid, setIsInvalid] = useState(false)
 
+    useEffect(() => {
+        if (props.isMovieEditor && props.currentMovie) {
+            return setState(() => ({
+                ...props.currentMovie,
+                release_date: new Date(props.currentMovie.release_date)
+            }))
+        } else if (!props.isMovieEditor && props.currentMovie) {
+            return setState({
+                title : '',
+                poster_path: '',
+                release_date: '',
+                genres: 'selectGenre',
+                overview: '',
+                runtime: '',
+            })
+        }
+
+    }, [props.isMovieEditor, props.currentMovie])
 
     function resetForm() {
-
         setState(prevState => {
             return {
                 title : '',
@@ -90,8 +107,8 @@ function MovieEditor(props) {
                     ? 'Edit Movie'
                     : 'Add Movie'}
                 </MainTitle>
-                <form onSubmit={props.isMovieEditor ? null : submitForm}>
-                    {props.isMovieEditor ? <MovieId />  : null}
+                <form onSubmit={props.isMovieEditor ? console.log(state) : submitForm}>
+                    {props.isMovieEditor ? <MovieId movieId={state.id} />  : null}
                     <InputText
                         name={'title'}
                         title={'title'}
@@ -155,8 +172,12 @@ MovieEditor.defaultProps = {
     isMovieEditor: false
 }
 
+const mapStateToProps = state => ({
+    currentMovie: state.fetchMovies.currentMovie
+})
+
 const mapDispatchToProps = dispatch => ({
     postMovie: data => dispatch(postMovie(data))   //POST method to add Movie
 })
 
-export default connect(null, mapDispatchToProps) (MovieEditor)
+export default connect(mapStateToProps, mapDispatchToProps) (MovieEditor)
