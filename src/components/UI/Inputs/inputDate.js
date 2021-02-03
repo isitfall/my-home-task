@@ -7,9 +7,10 @@ export default function InputDate(props) {
         <label htmlFor={props.name} className={classes.label}>
             <span>{props.title}</span>
             <input type="date"
+                   id={props.name}
                    name={props.name}
                    onChange={props.change}
-                   value={props.value}
+                   value={props.inputValue}
             />
         </label>
     )

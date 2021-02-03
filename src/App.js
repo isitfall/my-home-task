@@ -110,7 +110,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     getMovieById: movieId => dispatch(getMovieById(movieId)), //GET just one movie by movieID,
-    putMovie: data => dispatch(putMovie(data)), //UPDATE just one movie by movieID,
     deleteMovie: movieId => dispatch(deleteMovie(movieId)),
 })
 

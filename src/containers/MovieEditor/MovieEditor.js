@@ -13,14 +13,14 @@ import ExitButton from "../../components/UI/ExitButton/ExitButton";
 import MainTitle from "../../components/UI/MainTitle/MainTitle";
 import MovieId from "../../components/UI/MovieId/MovieId";
 
-import { postMovie } from "../../Store/actionCreators";
+import { postMovie, putMovie } from "../../Store/actionCreators";
 
 function MovieEditor(props) {
 
     const [state, setState] = useState({
             title : '',
             poster_path: '',
-            release_date: '',
+            release_date: null,
             genres: 'selectGenre',
             overview: '',
             runtime: '',
@@ -28,36 +28,44 @@ function MovieEditor(props) {
     const [isInvalid, setIsInvalid] = useState(false)
 
     useEffect(() => {
-        if (props.isMovieEditor && props.currentMovie) {
-            return setState(() => ({
-                ...props.currentMovie,
-                release_date: new Date(props.currentMovie.release_date)
-            }))
-        } else if (!props.isMovieEditor && props.currentMovie) {
-            return setState({
+        setState((prevState) => {
+            return (props.isMovieEditor && props.currentMovie) ? ({
+                ...props.currentMovie
+            }) : ((!props.isMovieEditor && props.currentMovie) ? ({
                 title : '',
                 poster_path: '',
-                release_date: '',
+                release_date: null,
                 genres: 'selectGenre',
                 overview: '',
                 runtime: '',
-            })
-        }
+            }) : prevState)
 
-    }, [props.isMovieEditor, props.currentMovie])
+        })
+    }, [props.currentMovie])
+
 
     function resetForm() {
-        setState(prevState => {
-            return {
-                title : '',
-                poster_path: '',
-                release_date: new Date(null),
-                genres: 'selectGenre',
-                overview: '',
-                runtime: '',
-                }
-            }
-        )
+            setState((prevState) => {
+                if (props.isMovieEditor && props.currentMovie) {
+                    return {
+                        ...prevState,
+                        title: '',
+                        poster_path: '',
+                        release_date: '',
+                        genres: 'selectGenre',
+                        overview: '',
+                        runtime: '',
+                        }
+                    } else {
+                        return {
+                            title: '',
+                            poster_path: '',
+                            release_date: '',
+                            genres: 'selectGenre',
+                            overview: '',
+                            runtime: '',
+                        }
+                    }})
     }
 
 
@@ -77,7 +85,6 @@ function MovieEditor(props) {
     }
 
     function submitForm(e) {
-        const {name, value} = e.target
 
         e.preventDefault();
 
@@ -89,7 +96,10 @@ function MovieEditor(props) {
             return false
         } else {
             const data = {...state}
-            props.postMovie(data)
+
+            props.isMovieEditor
+                ? props.putMovie(data)
+                : props.postMovie(data)
 
             resetForm()
         }
@@ -107,7 +117,7 @@ function MovieEditor(props) {
                     ? 'Edit Movie'
                     : 'Add Movie'}
                 </MainTitle>
-                <form onSubmit={props.isMovieEditor ? console.log(state) : submitForm}>
+                <form onSubmit={submitForm}>
                     {props.isMovieEditor ? <MovieId movieId={state.id} />  : null}
                     <InputText
                         name={'title'}
@@ -177,7 +187,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    postMovie: data => dispatch(postMovie(data))   //POST method to add Movie
+    postMovie: data => dispatch(postMovie(data)),   //POST method to add Movie
+    putMovie: data => dispatch(putMovie(data)), //UPDATE just one movie by movieID,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps) (MovieEditor)

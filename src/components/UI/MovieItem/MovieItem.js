@@ -11,12 +11,12 @@ export default function MovieItem(props) {
     const [isShowMovieMenu, setIsShowMovieMenu] = useState(false)
     const context = useContext(MovieListItemContext)
 
+
     function onHoverHandler() {
         if (isShowMovieMenu) {
             setIsShowMovieMenu(false)
         }
         setHovered(prevState => !prevState)
-
     }
 
     function changeMenuHandler(e) {
@@ -26,18 +26,13 @@ export default function MovieItem(props) {
     }
 
 
-
     const showByConditionally = () => {
-
-        if (hovered) {
-            if (isShowMovieMenu) {
-                return <MovieMenu large={10} tickness={1} click={changeMenuHandler} movieId={props.id}/>
-            } else {
-                return <DotsIcon click={changeMenuHandler}/>
-            }
-        } else {
-            return null
-        }
+        return hovered
+            ? (isShowMovieMenu
+                ? <MovieMenu large={10} tickness={1} click={changeMenuHandler} movieId={props.id}/>
+                : <DotsIcon click={changeMenuHandler}/>
+            )
+            : null
     }
 
     return (
@@ -78,4 +73,7 @@ MovieItem.PropTypes = {
 MovieItem.defaultProps = {
     img: 'https://risanb.com/img/react.png'
 }
+
+
+
 

@@ -85,7 +85,10 @@ export function putMovie(data) {
                 'Content-Type': 'application/json'
             },
             method: 'PUT',
-            body: JSON.stringify({...data})
+            body: JSON.stringify({...data,
+                runtime: +data.runtime,
+                genres: [data.genres]
+            })
         })
             .then(res => res.json())
             .then(body => dispatch({
