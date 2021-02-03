@@ -68,6 +68,21 @@ const fetchMovies = (state = initialState, actions) => {
         case actionsTypes.FILTER_BY_RELEASE_DATE:
             return {
                 ...state,
+                moviesList: [...state.moviesList].sort((first, second) => {
+                    const a = new Date(first.release_date);
+                    const b = new Date(second.release_date);
+                    return a < b ? -1 : a > b ? 1 : 0;
+                })
+            }
+        case actionsTypes.FILTER_BY_RATING :
+            return {
+                ...state,
+                ...state,
+                moviesList: [...state.moviesList].sort((first, second) => {
+                    const a = first.vote_average;
+                    const b = second.vote_average;
+                    return a > b ? -1 : a < b ? 1 : 0;
+                })
             }
         case actionsTypes.DELETE_MOVIE:
             return {
