@@ -36,7 +36,7 @@ function MovieDetails(props) {
                             </div>
 
                             <p>{props.currentMovie.genres.join(', ')}</p>
-                            <p className={classes.pink}><span>{new Date(props.currentMovie.release_date).getFullYear()}</span> <span>{props.movieDuration}min</span></p>
+                            <p className={classes.pink}><span>{new Date(props.currentMovie.release_date).getFullYear()}</span> <span>{props.currentMovie.runtime}min</span></p>
                             <p>{props.currentMovie.overview}</p>
                         </div>
                     </>
