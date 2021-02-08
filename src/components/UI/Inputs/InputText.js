@@ -12,12 +12,15 @@ export default function InputText(props) {
                    type='text'
                    onChange={props.change}
                    value={props.inputValue}
+                   className={props.error ? classes.errorInput : null}
             />
+            {props.error ? <p className={classes.errorParagraph}>{props.error}</p> : null}
         </label>
     )
 }
 
 InputText.propTypes = {
+    error: PropTypes.string,
     inputValue: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number

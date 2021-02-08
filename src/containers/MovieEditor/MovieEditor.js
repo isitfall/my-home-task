@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {connect} from 'react-redux';
+import { useFormik } from "formik";
 
 import classes from './MovieEditor.sass'
 import PropTypes from 'prop-types'
@@ -15,6 +16,34 @@ import MovieId from "../../components/UI/MovieId/MovieId";
 
 import { postMovie, putMovie } from "../../Store/actionCreators";
 
+//validation form
+const validate = values => {
+    const errors = {}
+
+    if (!values.title) {
+        errors.title = 'Title is Required!'
+    }
+
+    if (!values.poster_path || !values.poster_path.includes('http')) {
+        errors.poster_path = 'Poster URL is Required!'
+    }
+
+    if (!values.overview) {
+        errors.overview = 'Overview is Required!'
+    }
+
+    if (values.genres === 'selectGenre') {
+        errors.genres = 'Select as least one genre to processed!'
+    }
+
+    if (!values.runtime || !+values.runtime) {
+        errors.runtime = 'Runtime must be a Number!'
+    }
+
+    return errors
+}
+
+
 function MovieEditor(props) {
 
     const [state, setState] = useState({
@@ -26,6 +55,22 @@ function MovieEditor(props) {
             runtime: '',
         })
     const [isInvalid, setIsInvalid] = useState(false)
+
+    const formik = useFormik({
+                initialValues: {
+                    title : '',
+                    poster_path: '',
+                    release_date: null,
+                    genres: 'selectGenre',
+                    overview: '',
+                    runtime: '',
+                },
+                validate,
+                onSubmit: values => {
+                    props.postMovie(values)
+                }
+            })
+
 
     useEffect(() => {
         setState((prevState) => {
@@ -45,27 +90,28 @@ function MovieEditor(props) {
 
 
     function resetForm() {
-            setState((prevState) => {
-                if (props.isMovieEditor && props.currentMovie) {
+        setState((prevState) => {
+
+            if (props.isMovieEditor && props.currentMovie) {
+                return {
+                    ...prevState,
+                    title: '',
+                    poster_path: '',
+                    release_date: '',
+                    genres: 'selectGenre',
+                    overview: '',
+                    runtime: '',
+                    }
+                } else {
                     return {
-                        ...prevState,
                         title: '',
                         poster_path: '',
                         release_date: '',
                         genres: 'selectGenre',
                         overview: '',
                         runtime: '',
-                        }
-                    } else {
-                        return {
-                            title: '',
-                            poster_path: '',
-                            release_date: '',
-                            genres: 'selectGenre',
-                            overview: '',
-                            runtime: '',
-                        }
-                    }})
+                    }
+                }})
     }
 
 
@@ -117,53 +163,59 @@ function MovieEditor(props) {
                     ? 'Edit Movie'
                     : 'Add Movie'}
                 </MainTitle>
-                <form onSubmit={submitForm}>
+                <form onSubmit={formik.handleSubmit}>
                     {props.isMovieEditor ? <MovieId movieId={state.id} />  : null}
                     <InputText
                         name={'title'}
                         title={'title'}
                         placeholder={'Title here'}
-                        inputValue={state.title}
-                        change = {changeHandler}
+                        inputValue={formik.values.title}
+                        change = {formik.handleChange}
+                        error={formik.errors.title}
                     />
                     <InputDate
                         name={'release_date'}
                         title={'release date'}
                         placeholder={'Select Date'}
                         inputType={'date'}
-                        inputValue={state.release_date}
-                        change = {changeHandler}
+                        inputValue={formik.values.release_date}
+                        change = {formik.handleChange}
+                        error={formik.errors.release_date}
                     />
                     <InputText
                         name={'poster_path'}
                         title={'movie url'}
                         placeholder={'Movie URL here'}
-                        inputValue={state.poster_path}
-                        change = {changeHandler}
+                        inputValue={formik.values.poster_path}
+                        change = {formik.handleChange}
+                        error={formik.errors.poster_path}
                     />
                     <Select
                         name={'genres'}
                         title={'genre'}
-                        selectValue={state.genres}
-                        inputValue={state.genres}
-                        change = {changeHandler}
+                        selectValue={formik.values.genres}
+                        inputValue={formik.values.genres}
+                        change = {formik.handleChange}
                         isInvalid={isInvalid}
+                        error={formik.errors.genres}
                     />
                     <InputText
                         name={'overview'}
                         title={'overview'}
                         placeholder={'Overview here'}
-                        inputValue={state.overview}
-                        change = {changeHandler}
+                        inputValue={formik.values.overview}
+                        change = {formik.handleChange}
+                        error={formik.errors.overview}
                     />
                     <InputText
                         name={'runtime'}
                         title={'runtime'}
                         placeholder={'Runtime here'}
-                        inputValue={state.runtime}
-                        change = {changeHandler}
+                        inputValue={formik.values.runtime}
+                        change = {formik.handleChange}
+                        error={formik.errors.runtime}
                     />
-                    <BtnsFormEditor click={resetForm}
+                    <BtnsFormEditor click={formik.handleReset}
                     />
                 </form>
             </div>

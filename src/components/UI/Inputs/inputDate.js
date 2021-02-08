@@ -11,12 +11,15 @@ export default function InputDate(props) {
                    name={props.name}
                    onChange={props.change}
                    value={props.inputValue}
+                   className={ props.error ? classes.errorInput : null}
             />
+            {props.error ? <p className={classes.errorParagraph}>{props.error}</p> : null}
         </label>
     )
 }
 
 InputDate.propTypes = {
+    error: PropTypes.string,
     value: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number
