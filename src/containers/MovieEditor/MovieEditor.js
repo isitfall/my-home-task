@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import {connect} from 'react-redux';
 import { useFormik } from "formik";
 
@@ -46,17 +46,28 @@ const validate = values => {
 
 function MovieEditor(props) {
 
-    const [state, setState] = useState({
-            title : '',
-            poster_path: '',
-            release_date: null,
-            genres: 'selectGenre',
-            overview: '',
-            runtime: '',
-        })
-    const [isInvalid, setIsInvalid] = useState(false)
-
-    const formik = useFormik({
+    const formik = useFormik(
+        (props.isMovieEditor && props.currentMovie)
+        ? {
+                initialValues: {
+                    ...props.currentMovie
+                },
+                validate,
+                onReset: values => {
+                    return {
+                        ...values,
+                        title : '',
+                        poster_path: '',
+                        release_date: null,
+                        genres: 'selectGenre',
+                        overview: '',
+                        runtime: '',
+                    }
+                },
+                onSubmit: values => {
+                    props.putMovie(values)
+                }
+            } : {
                 initialValues: {
                     title : '',
                     poster_path: '',
@@ -72,85 +83,11 @@ function MovieEditor(props) {
             })
 
 
+    //выглядит как костыль, но РАБОТАЕТ!
+    //как только props.currentMovie - тогда сразу в форму попадет текущий список
     useEffect(() => {
-        setState((prevState) => {
-            return (props.isMovieEditor && props.currentMovie) ? ({
-                ...props.currentMovie
-            }) : ((!props.isMovieEditor && props.currentMovie) ? ({
-                title : '',
-                poster_path: '',
-                release_date: null,
-                genres: 'selectGenre',
-                overview: '',
-                runtime: '',
-            }) : prevState)
-
-        })
+        return formik.setValues(() => ({...props.currentMovie}))
     }, [props.currentMovie])
-
-
-    function resetForm() {
-        setState((prevState) => {
-
-            if (props.isMovieEditor && props.currentMovie) {
-                return {
-                    ...prevState,
-                    title: '',
-                    poster_path: '',
-                    release_date: '',
-                    genres: 'selectGenre',
-                    overview: '',
-                    runtime: '',
-                    }
-                } else {
-                    return {
-                        title: '',
-                        poster_path: '',
-                        release_date: '',
-                        genres: 'selectGenre',
-                        overview: '',
-                        runtime: '',
-                    }
-                }})
-    }
-
-
-    function changeHandler(e) {
-        const {name, value} = e.target
-
-        if (name === 'genres') {
-            setIsInvalid(false)
-        }
-
-        setState(prevState => {
-            return {
-                ...prevState,
-                [name]: value
-            }
-        })
-    }
-
-    function submitForm(e) {
-
-        e.preventDefault();
-
-        setIsInvalid(false)
-
-
-        if ( state.genres === 'selectGenre') {
-            setIsInvalid(true)
-            return false
-        } else {
-            const data = {...state}
-
-            props.isMovieEditor
-                ? props.putMovie(data)
-                : props.postMovie(data)
-
-            resetForm()
-        }
-    }
-
 
 
 
@@ -164,7 +101,7 @@ function MovieEditor(props) {
                     : 'Add Movie'}
                 </MainTitle>
                 <form onSubmit={formik.handleSubmit}>
-                    {props.isMovieEditor ? <MovieId movieId={state.id} />  : null}
+                    {props.isMovieEditor ? <MovieId movieId={formik.values.id} />  : null}
                     <InputText
                         name={'title'}
                         title={'title'}
@@ -196,7 +133,6 @@ function MovieEditor(props) {
                         selectValue={formik.values.genres}
                         inputValue={formik.values.genres}
                         change = {formik.handleChange}
-                        isInvalid={isInvalid}
                         error={formik.errors.genres}
                     />
                     <InputText
