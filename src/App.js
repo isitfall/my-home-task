@@ -8,14 +8,16 @@ import MainSection from "./components/layouts/MainSection/MainSection";
 import Footer from "./components/layouts/Footer/Footer";
 import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
 import { MovieListItemContext } from './Context/Context';
+import ModalWindow from "./components/layouts/ModalWindow/ModalWindow";
 
 import { getMovieById, putMovie, deleteMovie } from "./Store/actionCreators";
 
 function App(props) {
-    const [editMovie, setEditMovie] = useState(false);
-    const [isShowMovieDetails, setIsShowMovieDetails] = useState(false);
-    const [addMovie, setAddMovie] = useState(false);
-    const [deleteMovie, setDeleteMovie] = useState(false)
+    const [editMovie, setEditMovie] = useState(false); //shows EditMovie form
+    const [isShowMovieDetails, setIsShowMovieDetails] = useState(false); //shows Movie details instead of main header
+    const [addMovie, setAddMovie] = useState(false); //shows AddMovie form
+    const [deleteMovie, setDeleteMovie] = useState(false) //shows DeleteMovie modal window
+    const [success, setSuccess] = useState(false) //shows Sucsess ModalWindow
 
     const showMovieDetails = useCallback((e, movieId) => {
         if (e.target.className.includes('MovieItem') || e.target.tagName === 'IMG') {
@@ -38,6 +40,9 @@ function App(props) {
         if (!deleteMovie) {
             props.getMovieById(movieId)
 
+            toggleHiddenOverflow()
+            setDeleteMovie(value => !value )
+        } else {
             toggleHiddenOverflow()
             setDeleteMovie(value => !value )
         }
@@ -69,6 +74,11 @@ function App(props) {
         setAddMovie(!addMovie)
     }
 
+    function toggleSuccess() {
+        toggleHiddenOverflow()
+        setSuccess(!success)
+    }
+
 
 
 
@@ -76,9 +86,11 @@ function App(props) {
 
             <>
                 <MovieListItemContext.Provider value={{
+                    toggleAddMovie,
                     toggleMovieEditor,
                     toggleDeleteMovie,
                     showMovieDetails,
+                    toggleSuccess
                 }}>
                     {addMovie
                         ? <AddMovie isMovieEditor={editMovie} click={editMovie ? toggleMovieEditor : toggleAddMovie}/> //isMovieEditor prop as boolean
@@ -87,6 +99,7 @@ function App(props) {
                         ? <DeleteMovie click = {toggleDeleteMovie} onConfirm={() => confirmDelete(props.currentMovie.id)}/>
                         : null
                     }
+                    {success ? <ModalWindow click={toggleSuccess}/> : null}
                     <Header showMovieDetails={isShowMovieDetails}
                             click={isShowMovieDetails
                                 ? showSearchPanel

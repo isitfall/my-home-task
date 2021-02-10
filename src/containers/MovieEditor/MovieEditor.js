@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import {connect} from 'react-redux';
 import { useFormik } from "formik";
 
@@ -13,6 +13,8 @@ import BtnsFormEditor from "../../components/layouts/BtnsFromEditor/BtnsFormEdit
 import ExitButton from "../../components/UI/ExitButton/ExitButton";
 import MainTitle from "../../components/UI/MainTitle/MainTitle";
 import MovieId from "../../components/UI/MovieId/MovieId";
+
+import { MovieListItemContext } from "../../Context/Context";
 
 import { postMovie, putMovie } from "../../Store/actionCreators";
 
@@ -34,6 +36,9 @@ const validate = values => {
 
     if (values.genres === 'selectGenre') {
         errors.genres = 'Select as least one genre to processed!'
+    } else if (Array.isArray(values.genres) && values.genres.length > 1 || Array.isArray(values.genres)) {
+        errors.genres = 'Select new type of genre!'
+        console.info(values.genres)
     }
 
     if (!values.runtime || !+values.runtime) {
@@ -46,11 +51,14 @@ const validate = values => {
 
 function MovieEditor(props) {
 
+    const context = useContext(MovieListItemContext)
+
     const formik = useFormik(
         (props.isMovieEditor && props.currentMovie)
         ? {
                 initialValues: {
-                    ...props.currentMovie
+                    ...props.currentMovie,
+                    genres: props.currentMovie.genres[0]
                 },
                 validate,
                 onReset: values => {
@@ -79,6 +87,8 @@ function MovieEditor(props) {
                 validate,
                 onSubmit: values => {
                     props.postMovie(values)
+                    context.toggleAddMovie()
+                    context.toggleSuccess()
                 }
             })
 

@@ -6,7 +6,8 @@ export default function MainTitle(props) {
     return (
         <h2 style={{fontSize: props.fontSize,
             textTransform: props.textTransform,
-            fontWeight: props.fontWeight
+            fontWeight: props.fontWeight,
+            textAlign: props.textAlign
         }}
             className={classes.title}
         >
@@ -18,6 +19,7 @@ export default function MainTitle(props) {
 MainTitle.propTypes = {
     fontSize: PropTypes.string,
     textTransform: PropTypes.string,
-    fontWeight: PropTypes.number
+    fontWeight: PropTypes.number,
+    textAlign: PropTypes.string
 }
 
