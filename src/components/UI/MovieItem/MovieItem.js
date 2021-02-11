@@ -11,14 +11,6 @@ export default function MovieItem(props) {
     const [isShowMovieMenu, setIsShowMovieMenu] = useState(false)
     const context = useContext(MovieListItemContext)
 
-
-    function onHoverHandler() {
-        if (isShowMovieMenu) {
-            setIsShowMovieMenu(false)
-        }
-        setHovered(prevState => !prevState)
-    }
-
     function changeMenuHandler(e) {
         setIsShowMovieMenu(prevState => {
             return !prevState
@@ -38,8 +30,11 @@ export default function MovieItem(props) {
     return (
         <div className={` ${classes.MovieItem}` }
              onClick={(e) => context.showMovieDetails(e, props.id)}
-             onMouseEnter={onHoverHandler}
-             onMouseLeave={onHoverHandler}
+             onMouseEnter={() => setHovered(true)}
+             onMouseLeave={() => {
+                 setHovered(false)
+                 setIsShowMovieMenu(false)
+             }}
         >
             {showByConditionally()}
             <img src={props.img} alt="img"/>
