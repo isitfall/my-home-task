@@ -25,7 +25,7 @@ export const postMovie = (data) => dispatch => {
         body: JSON.stringify({
             ...data,
             runtime: +data.runtime,
-            genres: [data.genres]
+            genres: [...data.genres]
         })
     })
         .then(res => res.json())

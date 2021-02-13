@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import {connect} from 'react-redux';
-import { useFormik } from "formik";
+import { useFormik, Field } from "formik";
 
 import classes from './MovieEditor.sass'
 import PropTypes from 'prop-types'
@@ -34,11 +34,8 @@ const validate = values => {
         errors.overview = 'Overview is Required!'
     }
 
-    if (values.genres === 'selectGenre') {
+    if (values.genres.length === 0) {
         errors.genres = 'Select as least one genre to processed!'
-    } else if (Array.isArray(values.genres) && values.genres.length > 1 || Array.isArray(values.genres)) {
-        errors.genres = 'Select new type of genre!'
-        console.info(values.genres)
     }
 
     if (!values.runtime || !+values.runtime) {
@@ -58,7 +55,6 @@ function MovieEditor(props) {
         ? {
                 initialValues: {
                     ...props.currentMovie,
-                    genres: props.currentMovie.genres[0]
                 },
                 validate,
                 onReset: values => {
@@ -81,12 +77,13 @@ function MovieEditor(props) {
                     title : '',
                     poster_path: '',
                     release_date: null,
-                    genres: 'selectGenre',
+                    genres: [],
                     overview: '',
                     runtime: '',
                 },
                 validate,
                 onSubmit: values => {
+                    alert(JSON.stringify(values, null, 2))
                     props.postMovie(values)
                     context.toggleAddMovie()
                     context.toggleSuccess()

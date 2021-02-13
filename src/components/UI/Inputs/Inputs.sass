@@ -26,6 +26,9 @@
     &:focus
       outline: none
 
+    option
+      display: none
+
   input
     margin-top: .3rem
     height: 1.3rem
@@ -50,3 +53,28 @@
     font-weight: 500
     color: #f65261
     text-transform: uppercase
+
+.optionsWrapper
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+  position: absolute
+  top: 59%
+  left: 10%
+  width: 80%
+  min-height: 10%
+  box-sizing: border-box
+  padding: 1rem
+  background: #232323
+  border-radius: 1rem
+  border: 1px solid #000000
+  box-shadow: 0 6px 2px -3px #211111
+
+  label
+    display: block
+
+    &:hover
+      background: #f65261
+
+    span
+      color: #ffffff

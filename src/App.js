@@ -70,7 +70,6 @@ function App(props) {
 
 
     function toggleAddMovie(e) {
-        console.log('toggleAddMovie()',editMovie)
         if (editMovie) {
             setEditMovie(false)
         }
