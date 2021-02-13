@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 
 import MainTitle from "../../UI/MainTitle/MainTitle";
@@ -9,8 +9,12 @@ import PropTypes from 'prop-types'
 
 import classes from './MovieDetails.sass';
 
+import {getMovieById} from "../../../Store/actionCreators";
+
 
 function MovieDetails(props) {
+
+
     return (
     //  budget: 55000000
     // genres: (2) ["Documentary", "Romance"]
@@ -82,7 +86,11 @@ MovieDetails.defaultProps = {
 }
 
 const mapStateToProps = state => ({
-    currentMovie: state.fetchMovies.currentMovie
+    currentMovie: state.fetchMovies.currentMovie,
 })
 
-export default connect(mapStateToProps, null) (MovieDetails)
+const mapDispatchToProps = dispatch => ({
+    getMovieById: id => dispatch(getMovieById(id))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps) (MovieDetails)

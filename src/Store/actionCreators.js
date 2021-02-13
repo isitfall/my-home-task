@@ -25,7 +25,6 @@ export const postMovie = (data) => dispatch => {
         body: JSON.stringify({
             ...data,
             runtime: +data.runtime,
-            genres: [...data.genres]
         })
     })
         .then(res => res.json())
@@ -87,7 +86,6 @@ export function putMovie(data) {
             method: 'PUT',
             body: JSON.stringify({...data,
                 runtime: +data.runtime,
-                genres: [data.genres]
             })
         })
             .then(res => res.json())

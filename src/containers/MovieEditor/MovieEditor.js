@@ -16,7 +16,7 @@ import MovieId from "../../components/UI/MovieId/MovieId";
 
 import { MovieListItemContext } from "../../Context/Context";
 
-import { postMovie, putMovie } from "../../Store/actionCreators";
+import { postMovie, putMovie, getMovieById } from "../../Store/actionCreators";
 
 //validation form
 const validate = values => {
@@ -63,13 +63,14 @@ function MovieEditor(props) {
                         title : '',
                         poster_path: '',
                         release_date: null,
-                        genres: 'selectGenre',
+                        genres: [],
                         overview: '',
                         runtime: '',
                     }
                 },
                 onSubmit: values => {
                     props.putMovie(values)
+                    props.getMovieById(values.id)
                     context.toggleMovieEditor()
                 }
             } : {
@@ -83,8 +84,8 @@ function MovieEditor(props) {
                 },
                 validate,
                 onSubmit: values => {
-                    alert(JSON.stringify(values, null, 2))
                     props.postMovie(values)
+
                     context.toggleAddMovie()
                     context.toggleSuccess()
                 }
@@ -141,7 +142,6 @@ function MovieEditor(props) {
                         name={'genres'}
                         title={'genre'}
                         selectValue={formik.values.genres}
-                        inputValue={formik.values.genres}
                         change = {formik.handleChange}
                         error={formik.errors.genres}
                     />
@@ -187,6 +187,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     postMovie: data => dispatch(postMovie(data)),   //POST method to add Movie
     putMovie: data => dispatch(putMovie(data)), //UPDATE just one movie by movieID,
+    getMovieById: id => dispatch(getMovieById(id))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps) (MovieEditor)
