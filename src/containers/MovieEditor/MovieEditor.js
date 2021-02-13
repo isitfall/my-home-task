@@ -74,6 +74,7 @@ function MovieEditor(props) {
                 },
                 onSubmit: values => {
                     props.putMovie(values)
+                    context.toggleMovieEditor()
                 }
             } : {
                 initialValues: {
@@ -96,7 +97,9 @@ function MovieEditor(props) {
     //выглядит как костыль, но РАБОТАЕТ!
     //как только props.currentMovie - тогда сразу в форму попадет текущий список
     useEffect(() => {
-        return formik.setValues(() => ({...props.currentMovie}))
+        if (props.isMovieEditor) {
+            return formik.setValues(() => ({...props.currentMovie}))
+        }
     }, [props.currentMovie])
 
 

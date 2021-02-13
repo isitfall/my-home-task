@@ -17,7 +17,7 @@ function App(props) {
     const [isShowMovieDetails, setIsShowMovieDetails] = useState(false); //shows Movie details instead of main header
     const [addMovie, setAddMovie] = useState(false); //shows AddMovie form
     const [deleteMovie, setDeleteMovie] = useState(false) //shows DeleteMovie modal window
-    const [success, setSuccess] = useState(false) //shows Sucsess ModalWindow
+    const [success, setSuccess] = useState(false) //shows Success ModalWindow
 
     const showMovieDetails = useCallback((e, movieId) => {
         if (e.target.className.includes('MovieItem') || e.target.tagName === 'IMG') {
@@ -70,6 +70,10 @@ function App(props) {
 
 
     function toggleAddMovie(e) {
+        console.log('toggleAddMovie()',editMovie)
+        if (editMovie) {
+            setEditMovie(false)
+        }
         toggleHiddenOverflow()
         setAddMovie(!addMovie)
     }
