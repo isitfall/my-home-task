@@ -12,7 +12,6 @@ export default function Select (props) {
 
 
     function calculateSpace() {
-        console.log(select.current)
          if (select.current) {
            return  {top:  42 + select.current.offsetTop + 'px'}
          }
