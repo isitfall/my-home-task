@@ -1,14 +1,27 @@
-import React, {useState, useEffect} from 'react'
+import React, {useEffect, useRef} from 'react'
 import PropTypes from 'prop-types'
 import classes from './Inputs.sass'
 
 export default function Select (props) {
 
     const genres = ['Crime', 'Documentary', 'Horror', 'Comedy']
-    // const [isShown, setIsShown] = useState(true)
+    const select = useRef(null)
 
     //очередная костылина, чтобы обновить компонент, после асинхронного экшна к бд
-    useEffect(() => {}, [props.selectValue])
+    useEffect(() => {}, [props.selectValue, select])
+
+
+    function calculateSpace() {
+        console.log(select.current)
+         if (select.current) {
+           return  {top:  42 + select.current.offsetTop + 'px'}
+         }
+         // else if (select.current && !props.isMovieEditor) {
+         //     return {top:  42 + select.current.offsetTop + 'px'}
+         // }
+
+         return null
+    }
 
     function checkGenresArray(genre) {
             return props.selectValue.length > 0 ? props.selectValue.includes(genre) : false
@@ -23,17 +36,17 @@ export default function Select (props) {
                         value={props.selectValue}
                         onChange={props.change}
                         className={props.error ? classes.errorInput : null}
-                        // onClick={() => setIsShown(!isShown)}
+                        ref={select}
                 >
                     <option value={[]}>Select genre</option>
                 </select>
 
                 {props.error ? <p className={classes.errorParagraph}>{props.error}</p> : null}
             </label>
-            <div className={classes.optionsWrapper}
+            <div className={[classes.optionsWrapper, props.isMovieEditor ? classes.isMovieEditor : null].join(' ')}
                  style={
                      !props.isShown ? {display: "none"} : (
-                     props.error ? {top: '56%'}
+                     props.error ? calculateSpace()
                      : null )
             }>
                 {genres.map(elem => {
@@ -61,7 +74,8 @@ Select.propTypes = {
     title: PropTypes.string.isRequired,
     placeholder: PropTypes.string,
     change: PropTypes.func,
-    isShown: PropTypes.bool
+    isShown: PropTypes.bool,
+    isMovieEditor: PropTypes.bool
 }
 
 Select.defaultProps = {

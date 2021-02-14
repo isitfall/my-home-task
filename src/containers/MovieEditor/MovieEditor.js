@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useContext } from 'react';
 import {connect} from 'react-redux';
-import { useFormik, Field } from "formik";
+import { useFormik } from "formik";
 
 import classes from './MovieEditor.sass'
 import PropTypes from 'prop-types'
@@ -105,6 +105,7 @@ function MovieEditor(props) {
     //довольно таки неплохо тогглит div с чекбоксами
     function toggleShowSelect(e) {
         let attribute ;
+
         if (e.target.tagName=== 'INPUT' && e.target.attributes.type) {
             attribute = e.target.attributes.type.nodeValue
         }
@@ -163,6 +164,7 @@ function MovieEditor(props) {
                         change = {formik.handleChange}
                         error={formik.errors.genres}
                         isShown = {isShown}
+                        isMovieEditor = {props.isMovieEditor}
                     />
                     <InputText
                         name={'overview'}
