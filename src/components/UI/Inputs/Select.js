@@ -5,7 +5,7 @@ import classes from './Inputs.sass'
 export default function Select (props) {
 
     const genres = ['Crime', 'Documentary', 'Horror', 'Comedy']
-    const [isShown, setIsShown] = useState(true)
+    // const [isShown, setIsShown] = useState(true)
 
     //очередная костылина, чтобы обновить компонент, после асинхронного экшна к бд
     useEffect(() => {}, [props.selectValue])
@@ -23,7 +23,7 @@ export default function Select (props) {
                         value={props.selectValue}
                         onChange={props.change}
                         className={props.error ? classes.errorInput : null}
-                        onClick={() => setIsShown(!isShown)}
+                        // onClick={() => setIsShown(!isShown)}
                 >
                     <option value={[]}>Select genre</option>
                 </select>
@@ -32,7 +32,9 @@ export default function Select (props) {
             </label>
             <div className={classes.optionsWrapper}
                  style={
-                     isShown ? {display: "none"} : null
+                     !props.isShown ? {display: "none"} : (
+                     props.error ? {top: '56%'}
+                     : null )
             }>
                 {genres.map(elem => {
                     return (
@@ -59,6 +61,7 @@ Select.propTypes = {
     title: PropTypes.string.isRequired,
     placeholder: PropTypes.string,
     change: PropTypes.func,
+    isShown: PropTypes.bool
 }
 
 Select.defaultProps = {

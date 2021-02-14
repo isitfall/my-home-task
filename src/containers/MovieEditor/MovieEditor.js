@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, {useState, useEffect, useContext } from 'react';
 import {connect} from 'react-redux';
 import { useFormik, Field } from "formik";
 
@@ -47,6 +47,8 @@ const validate = values => {
 
 
 function MovieEditor(props) {
+
+    const [isShown, setIsShown] = useState(false)
 
     const context = useContext(MovieListItemContext)
 
@@ -100,11 +102,27 @@ function MovieEditor(props) {
         }
     }, [props.currentMovie])
 
+    //довольно таки неплохо тогглит div с чекбоксами
+    function toggleShowSelect(e) {
+        let attribute ;
+        if (e.target.tagName=== 'INPUT' && e.target.attributes.type) {
+            attribute = e.target.attributes.type.nodeValue
+        }
 
+        if (e.target.tagName === 'SELECT') {
+            setIsShown(!isShown)
+        } else if (e.target.tagName !== 'SELECT'
+            && attribute !== 'checkbox'
+            && !e.target.className.includes("optionsWrapper")
+            && e.target.tagName !== 'LABEL'
+        ) {
+            setIsShown(false)
+        }
+    }
 
     return (
         <BlurBackground>
-            <div className={classes.MovieEditor}>
+            <div className={classes.MovieEditor} onClick={toggleShowSelect}>
                 <ExitButton click={props.click}/>
                 <MainTitle fontSize={'2rem'}>
                     {props.isMovieEditor
@@ -144,6 +162,7 @@ function MovieEditor(props) {
                         selectValue={formik.values.genres}
                         change = {formik.handleChange}
                         error={formik.errors.genres}
+                        isShown = {isShown}
                     />
                     <InputText
                         name={'overview'}
