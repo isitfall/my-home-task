@@ -116,6 +116,7 @@ function MovieEditor(props) {
             && attribute !== 'checkbox'
             && !e.target.className.includes("optionsWrapper")
             && e.target.tagName !== 'LABEL'
+            && e.target.tagName !=='SPAN'
         ) {
             setIsShown(false)
         }

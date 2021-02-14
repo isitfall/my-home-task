@@ -14,12 +14,14 @@ export default function Select (props) {
     function calculateSpace() {
          if (select.current) {
            return  {top:  42 + select.current.offsetTop + 'px'}
+         } else {
+             return null
          }
          // else if (select.current && !props.isMovieEditor) {
          //     return {top:  42 + select.current.offsetTop + 'px'}
          // }
 
-         return null
+
     }
 
     function checkGenresArray(genre) {
@@ -42,11 +44,9 @@ export default function Select (props) {
 
                 {props.error ? <p className={classes.errorParagraph}>{props.error}</p> : null}
             </label>
-            <div className={[classes.optionsWrapper, props.isMovieEditor ? classes.isMovieEditor : null].join(' ')}
+            <div className={[classes.optionsWrapper, (props.isMovieEditor ? classes.isMovieEditor : null)].join(' ')}
                  style={
-                     !props.isShown ? {display: "none"} : (
-                     props.error ? calculateSpace()
-                     : null )
+                     !props.isShown ? {display: "none"} :  calculateSpace()
             }>
                 {genres.map(elem => {
                     return (
