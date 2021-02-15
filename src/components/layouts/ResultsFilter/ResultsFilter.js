@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
+import {useLocation} from "react-router";
 import ResultFilterItem from "../../UI/ResultFilterItem/ResultFilterItem";
 import classes from './ResultsFilter.sass'
 
@@ -36,9 +37,14 @@ function ResultFilter(props) {
             action: actionsTypes.FETCH_MOVIES_SORT_CRIME
         }
     ])
+    const location = useLocation();
 
     //по дефолту - при загрузке получим весь массив фильмов
-    useEffect(() => {props.getMoviesSorted(menuList[0].action, menuList[0].title)}, [menuList[0].action])
+    useEffect(() => {
+        if (location.pathname.includes('/search/')) {
+            props.getMoviesSorted(menuList[0].action, menuList[0].title)
+        }
+    }, [menuList[0].action, location.pathname])
 
 
     const clickHandler = (index) => {

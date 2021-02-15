@@ -8,12 +8,13 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'build'),
         chunkFilename: '[name].bundle.js',
-        filename: "[name].bundle.js"
+        filename: "[name].bundle.js",
     },
     devtool: 'source-map',
     devServer: {
         contentBase: './dist',
         hot: true,
+        historyApiFallback: true,
     },
     optimization: {
         splitChunks: {
