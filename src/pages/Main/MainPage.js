@@ -1,6 +1,5 @@
 import React, { useState,  useCallback } from 'react';
 import { connect } from 'react-redux';
-import { Link } from "react-router-dom";
 
 import MovieEditor from "../../containers/MovieEditor/MovieEditor";
 import DeleteMovie from "../../components/layouts/DeleteMovie/DeleteMovie";

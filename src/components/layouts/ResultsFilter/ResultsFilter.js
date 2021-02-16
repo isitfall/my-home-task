@@ -41,18 +41,24 @@ function ResultFilter(props) {
 
     //по дефолту - при загрузке получим весь массив фильмов
     useEffect(() => {
-        if (location.pathname.includes('/search/')) {
+        if (location.pathname.includes('/search/') && !props.currentMovie) {
             props.getMoviesSorted(menuList[0].action, menuList[0].title)
         }
     }, [menuList[0].action, location.pathname])
 
 
     const clickHandler = (index) => {
+
+
         const arr =[...menuList]
 
         arr.forEach(elem => elem.isActive = false)
         arr[index].isActive = true
-        props.showMoviesSorted(menuList[index].title)
+
+        if (location.pathname !== '/') {
+            props.showMoviesSorted(menuList[index].title)
+        }
+
         setMenuList(() => arr)
     }
 
@@ -71,6 +77,10 @@ function ResultFilter(props) {
     )
 }
 
+const mapStateToProps = state => ({
+    currentMovie: state.fetchMovies.currentMovie
+})
+
 const mapDispatchToProps = dispatch => {
     return {
         getMoviesSorted: (actionType, title) => dispatch(getMoviesSorted(actionType, title)),
@@ -78,4 +88,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(ResultFilter)
+export default connect(mapStateToProps, mapDispatchToProps)(ResultFilter)

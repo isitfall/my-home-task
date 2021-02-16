@@ -1,9 +1,9 @@
-import React, {useEffect} from 'react';
+import React, {useState} from 'react';
 import {connect} from 'react-redux';
 
 import MainTitle from "../../UI/MainTitle/MainTitle";
 import Rating from "../../UI/Rating/Rating";
-import PulpFictImg from '../../../assets/images/MoviesList/PulpFict.png'
+import defaultPoster from '../../../assets/icons/defaultPoster.jpg'
 
 import PropTypes from 'prop-types'
 
@@ -13,7 +13,13 @@ import {getMovieById} from "../../../Store/actionCreators";
 
 
 function MovieDetails(props) {
+    const [errImg, setErrImg] = useState(false)
 
+    function errorImgHandler(e) {
+        return  e.type === 'error'
+            ?   setErrImg(true)
+            : null
+    }
 
     return (
     //  budget: 55000000
@@ -32,7 +38,7 @@ function MovieDetails(props) {
             {props.currentMovie
                 ? (
                     <>
-                        <img src={props.currentMovie.poster_path} alt="img"/>
+                        <img src={errImg ? props.movieImg : props.currentMovie.poster_path} alt="img" onError={errorImgHandler}/>
                         <div className={classes.textContent}>
                             <div className={classes.MainContent}>
                                 <MainTitle fontSize={'3.3rem'} textTransform={'none'} fontWeight={400}>{props.currentMovie.title}</MainTitle>
@@ -77,7 +83,7 @@ MovieDetails.propTypes = {
 }
 
 MovieDetails.defaultProps = {
-    movieImg: PulpFictImg,
+    movieImg: defaultPoster,
     movieName: 'Pulp Fiction',
     movieGenre: "Oscar winning Movie",
     movieYear: 1994,

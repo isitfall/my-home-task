@@ -1,4 +1,6 @@
 import React from 'react';
+import { useLocation } from "react-router";
+
 import Container from "../Container/Container";
 import HeaderWrapper from "../HeaderWrapper/HeaderWrapper";
 import HeaderContent from "../HeaderContent/HeaderContent";
@@ -10,6 +12,8 @@ import styles from './Header.sass';
 
 
 export default function Header(props) {
+    const location = useLocation()
+
     return (
         <header className={styles.Header}>
             <div className={styles.blur}>
@@ -18,7 +22,7 @@ export default function Header(props) {
                         btnClass={styles.btn}
                         showMovieDetails = {props.showMovieDetails}
                         click={props.click}/>
-                    {props.showMovieDetails
+                    {props.showMovieDetails || location.pathname.includes('/film/')
                         ? <MovieDetails {...props}/>
                         : <HeaderContent/>
                     }
