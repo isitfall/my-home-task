@@ -2,7 +2,7 @@ import { combineReducers } from "redux";
 import actionsTypes from "./actionsTypes";
 import initialState from "./initialState";
 
-const fetchMovies = (state = initialState, actions) => {
+export const fetchMovies = (state = initialState, actions) => {
     switch (actions.type) {
         case actionsTypes.FETCH_MOVIES_LIST :
             return {
@@ -76,7 +76,6 @@ const fetchMovies = (state = initialState, actions) => {
             }
         case actionsTypes.FILTER_BY_RATING :
             return {
-                ...state,
                 ...state,
                 moviesList: [...state.moviesList].sort((first, second) => {
                     const a = first.vote_average;

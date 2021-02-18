@@ -1,6 +1,6 @@
 import React from 'react';
-import classes from './Rating.sass'
-import PropTypes from 'prop-types'
+import classes from './Rating.sass';
+import PropTypes from 'prop-types';
 
 export default function Rating(props) {
     return (

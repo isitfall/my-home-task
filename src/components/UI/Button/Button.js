@@ -12,7 +12,7 @@ export default function Button(props) {
     )
 }
 
-Button.PropTypes = {
+Button.propTypes = {
     styles: PropTypes.string,
     title: PropTypes.string,
     click: PropTypes.func,
