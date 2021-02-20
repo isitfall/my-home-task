@@ -6,7 +6,8 @@
   "scripts": {
     "serve": "SET NODE_ENV='developement' && webpack serve",
     "build": "SET NODE_ENV='developement' && webpack --watch --progress",
-    "production": "webpack --progress"
+    "production": "webpack --progress",
+    "test": "jest --coverage"
   },
   "author": "Denis Petrakov",
   "license": "ISC",
