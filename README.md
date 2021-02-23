@@ -5,3 +5,5 @@ Check **'branches'** to choose the home task.
 ***
 
 ## ***Task 9 : Testing***
+
+to run test : ***npm run test***

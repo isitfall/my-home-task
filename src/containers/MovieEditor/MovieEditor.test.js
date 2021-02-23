@@ -4,6 +4,8 @@ import MovieEditor from "./MovieEditor";
 
 
 describe('testing Add form', () => {
+
+
     const mockSubmit = jest.fn(e => e.preventDefault())
 
 
@@ -31,6 +33,10 @@ describe('testing Add form', () => {
     const submitBtn = getByText(container, 'save')
     const resetBtn = getByText(container, 'reset')
 
+    // afterEach(() => {
+    //     mockSubmit.mockClear()
+    // })
+
 
     it('AddMovie renders with blank fields', () => {
 
@@ -52,21 +58,15 @@ describe('testing Add form', () => {
         fireEvent.change(runtime, {target: {value: values.runtime}})
 
 
-
-
         expect(title.value).toEqual(values.title)
         expect(release_date.value).toEqual(values.release_date)
         expect(poster_path.value).toEqual(values.poster_path)
         expect(overview.value).toEqual(values.overview)
         expect(runtime.value).toEqual(values.runtime)
-
-
-
     })
 
     it('submit button onclick calls submit function', () => {
         fireEvent.click(submitBtn)
-        expect(mockSubmit).toHaveBeenCalled()
         expect(mockSubmit).toHaveBeenCalledTimes(1)
     })
 
@@ -78,6 +78,8 @@ describe('testing Add form', () => {
         expect(poster_path.value).toEqual('')
         expect(overview.value).toEqual('')
         expect(runtime.value).toEqual('')
+
+        screen.debug()
     })
 
 })
