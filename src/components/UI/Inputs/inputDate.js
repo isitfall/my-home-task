@@ -12,6 +12,7 @@ export default function InputDate(props) {
                    onChange={props.change}
                    value={props.inputValue}
                    className={ props.error ? classes.errorInput : null}
+                   data-testid={props.testId}
             />
             {props.error ? <p className={classes.errorParagraph}>{props.error}</p> : null}
         </label>
@@ -28,4 +29,5 @@ InputDate.propTypes = {
     title: PropTypes.string.isRequired,
     placeholder: PropTypes.string,
     changeHandler: PropTypes.func,
+    testId: PropTypes.string
 }

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 
 import MainTitle from "../../UI/MainTitle/MainTitle";
@@ -18,8 +18,12 @@ function MovieDetails(props) {
     function errorImgHandler(e) {
         return  e.type === 'error'
             ?   setErrImg(true)
-            : null
+            : setErrImg(false)
     }
+
+    // useEffect(() => {
+    //     if (errImg) setErrImg(false)
+    // }, [props.currentMovie])
 
     return (
     //  budget: 55000000

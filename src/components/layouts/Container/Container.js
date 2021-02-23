@@ -11,6 +11,6 @@ export default function Container(props) {
     )
 }
 
-Container.PropTypes = {
-    children: PropTypes.element.isRequired
-}
+// Container.propTypes = {
+//     children: PropTypes.element.isRequired
+// }

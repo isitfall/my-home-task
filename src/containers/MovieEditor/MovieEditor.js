@@ -2,8 +2,8 @@ import React, {useState, useEffect, useContext } from 'react';
 import {connect} from 'react-redux';
 import { useFormik } from "formik";
 
-import classes from './MovieEditor.sass'
-import PropTypes from 'prop-types'
+import classes from './MovieEditor.sass';
+import PropTypes from 'prop-types';
 
 import BlurBackground from "../../components/layouts/BlurBackground/BlurBackground";
 import InputDate from "../../components/UI/Inputs/inputDate";
@@ -124,62 +124,69 @@ function MovieEditor(props) {
 
     return (
         <BlurBackground>
-            <div className={classes.MovieEditor} onClick={toggleShowSelect}>
+            <div
+                className={classes.MovieEditor}
+                onClick={toggleShowSelect}>
                 <ExitButton click={props.click}/>
                 <MainTitle fontSize={'2rem'}>
                     {props.isMovieEditor
                     ? 'Edit Movie'
                     : 'Add Movie'}
                 </MainTitle>
-                <form onSubmit={formik.handleSubmit}>
+                <form onSubmit={props.testSubmitHandler ? props.testSubmitHandler : formik.handleSubmit}>
                     {props.isMovieEditor ? <MovieId movieId={formik.values.id} />  : null}
                     <InputText
+                        testId={'title'}
                         name={'title'}
                         title={'title'}
                         placeholder={'Title here'}
-                        inputValue={formik.values.title}
+                        inputValue={formik.values.title || ''}
                         change = {formik.handleChange}
                         error={formik.errors.title}
                     />
                     <InputDate
+                        testId={'release_date'}
                         name={'release_date'}
                         title={'release date'}
                         placeholder={'Select Date'}
                         inputType={'date'}
-                        inputValue={formik.values.release_date}
+                        inputValue={formik.values.release_date || ''}
                         change = {formik.handleChange}
                         error={formik.errors.release_date}
                     />
                     <InputText
+                       testId={'poster_path'}
                         name={'poster_path'}
                         title={'movie url'}
                         placeholder={'Movie URL here'}
-                        inputValue={formik.values.poster_path}
+                        inputValue={formik.values.poster_path || ''}
                         change = {formik.handleChange}
                         error={formik.errors.poster_path}
                     />
                     <Select
                         name={'genres'}
                         title={'genre'}
-                        selectValue={formik.values.genres}
+                        selectValue={formik.values.genres || ''}
                         change = {formik.handleChange}
                         error={formik.errors.genres}
                         isShown = {isShown}
                         isMovieEditor = {props.isMovieEditor}
                     />
                     <InputText
+                        testId={'overview'}
                         name={'overview'}
                         title={'overview'}
                         placeholder={'Overview here'}
-                        inputValue={formik.values.overview}
+                        inputValue={formik.values.overview || ''}
                         change = {formik.handleChange}
                         error={formik.errors.overview}
                     />
                     <InputText
+                        testId={'runtime'}
                         name={'runtime'}
                         title={'runtime'}
                         placeholder={'Runtime here'}
-                        inputValue={formik.values.runtime}
+                        inputValue={formik.values.runtime || ''}
                         change = {formik.handleChange}
                         error={formik.errors.runtime}
                     />
@@ -195,7 +202,8 @@ function MovieEditor(props) {
 
 
 MovieEditor.propTypes = {
-    isMovieEditor: PropTypes.bool
+    isMovieEditor: PropTypes.bool,
+    testSubmitHandler: PropTypes.func
 }
 
 MovieEditor.defaultProps = {

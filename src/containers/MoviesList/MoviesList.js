@@ -1,6 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-
 import MovieItem from "../../components/UI/MovieItem/MovieItem";
 import classes from './MoviesList.sass'
 
@@ -23,7 +22,6 @@ const MoviesList = props => {
             default: return null
         }
     }
-
 
     return (
         <div className={` ${classes.MoviesList}`}>
@@ -54,8 +52,7 @@ const mapStateToProps = (state) => ({
     comedyMovies: state.fetchMovies.comedyMoviesList,
     horrorMovies: state.fetchMovies.horrorMoviesList,
     crimeMovies: state.fetchMovies.crimeMoviesList,
-
-    moviesToShow: state.fetchMovies.moviesToShow
+    moviesToShow: state.fetchMovies.moviesToShow,
 })
 
 

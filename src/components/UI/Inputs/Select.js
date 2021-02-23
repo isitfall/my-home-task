@@ -20,8 +20,6 @@ export default function Select (props) {
          // else if (select.current && !props.isMovieEditor) {
          //     return {top:  42 + select.current.offsetTop + 'px'}
          // }
-
-
     }
 
     function checkGenresArray(genre) {
@@ -34,12 +32,10 @@ export default function Select (props) {
                 <span>{props.title}</span>
                 <select name={props.name}
                         id={props.name}
-                        value={props.selectValue}
-                        onChange={props.change}
                         className={props.error ? classes.errorInput : null}
                         ref={select}
                 >
-                    <option value={[]}>Select genre</option>
+                    <option value={'selectGenre'}>Select genre</option>
                 </select>
 
                 {props.error ? <p className={classes.errorParagraph}>{props.error}</p> : null}
@@ -50,13 +46,13 @@ export default function Select (props) {
             }>
                 {genres.map(elem => {
                     return (
-                        <label htmlFor={elem}>
+                        <label htmlFor={elem} key={elem}>
                             <input type="checkbox"
                                    name={props.name}
                                    id={elem}
                                    value={elem}
-                                   key={elem}
                                    onChange={props.change}
+                                   data-testid = {elem}
                                    checked={checkGenresArray(elem)}/>
                             <span>{elem}</span>
                         </label>
