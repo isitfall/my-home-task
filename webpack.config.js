@@ -1,9 +1,4 @@
-// module.exports = process.env.NODE_ENV === 'development'
-//     ? require('./webpack.config.dev')
-//     : require('./webpack.config.prod')
-
 const path = require('path')
-// const autoprefixer = require('autoprefixer')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
@@ -34,13 +29,6 @@ module.exports = {
                             }
                         }
                     },
-                    // {loader: 'postcss-loader', options: {
-                    //         ident: 'postcss',
-                    //         plugins: () => [autoprefixer()({
-                    //             'browsers': ['> 1%', 'last 2 versions']
-                    //         })]
-                    //     }
-                    // }
                 ]
             },
             {
