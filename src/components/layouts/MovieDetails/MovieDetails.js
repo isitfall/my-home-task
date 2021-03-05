@@ -17,7 +17,7 @@ function MovieDetails(props) {
 
     function errorImgHandler(e) {
         return  e.type === 'error'
-            ?   setErrImg(true)
+            ? setErrImg(true)
             : setErrImg(false)
     }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation } from "react-router";
+import { Switch, Route } from "react-router";
 
 import Container from "../Container/Container";
 import HeaderWrapper from "../HeaderWrapper/HeaderWrapper";
@@ -12,7 +12,6 @@ import styles from './Header.sass';
 
 
 export default function Header(props) {
-    const location = useLocation()
 
     return (
         <header className={styles.Header}>
@@ -22,10 +21,15 @@ export default function Header(props) {
                         btnClass={styles.btn}
                         showMovieDetails = {props.showMovieDetails}
                         click={props.click}/>
-                    {props.showMovieDetails || location.pathname.includes('/film/')
-                        ? <MovieDetails {...props}/>
-                        : <HeaderContent/>
-                    }
+
+                    <Switch>
+                        <Route exact path={'/film/:id'}>
+                            <MovieDetails {...props}/>
+                        </Route>
+                        <Route path={'/'}>
+                            <HeaderContent/>
+                        </Route>
+                    </Switch>
 
                 </Container>
             </div>

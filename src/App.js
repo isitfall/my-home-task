@@ -11,9 +11,9 @@ export default function App() {
 
     return (
         <Switch>
-            <Route exact path={'/'} component={MainPage} />
-            <Route path={'/film/:id'} component={MoviePage} />
-            <Route path={'/search/:query'} component={SearchPage} />
+            <Route path={['/', '/film/:id', '/search/:query']} component={MainPage} />
+            {/*<Route path={'/film/:id'} component={MoviePage} />*/}
+            {/*<Route path={'/search/:query'} component={SearchPage} />*/}
             <Route path='*' component={NoMatch} />
         </Switch>
     )

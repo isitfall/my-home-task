@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation } from "react-router";
+import { Route, Switch } from "react-router";
 
 import styles from "./HeaderWrapper.sass";
 import Logo from "../../UI/Logo/Logo";
@@ -9,14 +9,17 @@ import Loop from "../../UI/Loop/Loop";
 import PropTypes from 'prop-types';
 
 export default function HeaderWrapper(props) {
-    const location = useLocation()
     return (
         <div className={styles.HeaderWrapper}>
             <Logo/>
-            {props.showMovieDetails || location.pathname.includes('/film/')
-                ? <Loop  />
-                : <Button styles={props.btnClass} title={'+add movie'} click={props.click}/>
-            }
+            <Switch>
+                <Route exact path={'/film/:id'}>
+                    <Loop  />
+                </Route>
+                <Route path={'/'}>
+                    <Button styles={props.btnClass} title={'+add movie'} click={props.click}/>
+                </Route>
+            </Switch>
 
         </div>
     )

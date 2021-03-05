@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 
 import PropTypes from 'prop-types';
 import loopIcon from '../../../assets/icons/Loop.png';
@@ -7,16 +7,10 @@ import classes from './Loop.sass';
 
 export default function Loop(props) {
 
-    const history = useHistory()
-
-    function redirectToSearchPage() {
-        return history.push('/search/Search%20Query')
-    }
-
     return (
-        <button onClick={redirectToSearchPage} className={classes.Loop}>
+        <Link to={"/search/Search%20Query"} className={classes.Loop}>
             <img src={loopIcon} alt="loop"/>
-        </button>
+        </Link>
     )
 }
 
