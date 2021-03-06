@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
-import {useLocation} from "react-router";
+// import {useLocation} from "react-router";
+import { useRouter } from "next/router";
 import ResultFilterItem from "../../UI/ResultFilterItem/ResultFilterItem";
 import classes from './ResultsFilter.module.sass'
 
@@ -19,32 +20,32 @@ function ResultFilter(props) {
         {
             title: 'Documentary',
             isActive: false,
-            action: actionsTypes.FETCH_MOVIES_SORT_DOCUMENTARY
+            action: actionsTypes.SHOW_MOVIES_SORT_DOCUMENTARY
         },
         {
             title: 'Comedy',
             isActive: false,
-            action: actionsTypes.FETCH_MOVIES_SORT_COMEDY
+            action: actionsTypes.SHOW_MOVIES_SORT_COMEDY
         },
         {
             title: 'Horror',
             isActive: false,
-            action: actionsTypes.FETCH_MOVIES_SORT_HORROR
+            action: actionsTypes.SHOW_MOVIES_SORT_HORROR
         },
         {
             title: 'Crime',
             isActive: false,
-            action: actionsTypes.FETCH_MOVIES_SORT_CRIME
+            action: actionsTypes.SHOW_MOVIES_SORT_CRIME
         }
     ])
-    const location = useLocation();
+    const router = useRouter();
 
     //по дефолту - при загрузке получим весь массив фильмов
     useEffect(() => {
-        if (location.pathname.includes('/search/') && !props.currentMovie) {
+        if (router.pathname.includes('/search/') && !props.currentMovie) {
             props.getMoviesSorted(menuList[0].action, menuList[0].title)
         }
-    }, [menuList[0].action, location.pathname])
+    }, [menuList[0].action, router.pathname])
 
 
     const clickHandler = (index) => {
@@ -55,7 +56,7 @@ function ResultFilter(props) {
         arr.forEach(elem => elem.isActive = false)
         arr[index].isActive = true
 
-        if (location.pathname !== '/') {
+        if (router.pathname !== '/') {
             props.showMoviesSorted(menuList[index].title)
         }
 
