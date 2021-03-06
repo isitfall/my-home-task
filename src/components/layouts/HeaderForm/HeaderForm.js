@@ -1,16 +1,18 @@
 import React from 'react';
-import {useHistory} from "react-router";
+// import {useHistory} from "react-router";
+import { useRouter } from "next/router";
 
 import classes from './HeaderForm.module.sass'
 import PropTypes from 'prop-types'
 
 export default function HeaderForm(props) {
-    const history = useHistory()
+    // const history = useHistory()
+    const router = useRouter();
 
     function submitHandler(e) {
-        e.preventDefault()
+        e.preventDefault();
 
-        history.push('/search/Search%20Query')
+        router.push('/search');
     }
 
     return (

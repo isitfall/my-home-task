@@ -3,7 +3,7 @@ import MainPage from "../Main/MainPage";
 
 
 
-export default function SearchPage() {
+export default function Index() {
     return (
         <MainPage />
     )
