@@ -1,5 +1,6 @@
 import React from 'react';
-import { Switch, Route } from "react-router";
+// import { Switch, Route } from "react-router";
+import {useRouter} from "next/router";
 
 import Container from "../Container/Container";
 import HeaderWrapper from "../HeaderWrapper/HeaderWrapper";
@@ -12,6 +13,8 @@ import styles from './Header.module.sass';
 
 
 export default function Header(props) {
+    const router = useRouter();
+    const { id } = router.query;
 
     return (
         <header className={styles.Header}>
@@ -22,14 +25,18 @@ export default function Header(props) {
                         showMovieDetails = {props.showMovieDetails}
                         click={props.click}/>
 
-                    <Switch>
-                        <Route exact path={'/film/:id'}>
-                            <MovieDetails {...props}/>
-                        </Route>
-                        <Route path={'/'}>
-                            <HeaderContent/>
-                        </Route>
-                    </Switch>
+                    {props.showMovieDetails || router.pathname.includes('/film/')
+                        ? <MovieDetails {...props}/>
+                        : <HeaderContent/>
+                    }
+                    {/*<Switch>*/}
+                    {/*    <Route exact path={'/film/:id'}>*/}
+                    {/*        <MovieDetails {...props}/>*/}
+                    {/*    </Route>*/}
+                    {/*    <Route path={'/'}>*/}
+                    {/*        <HeaderContent/>*/}
+                    {/*    </Route>*/}
+                    {/*</Switch>*/}
 
                 </Container>
             </div>

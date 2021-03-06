@@ -13,7 +13,7 @@ import {getMovieById} from "../../../Store/actionCreators";
 
 
 function MovieDetails(props) {
-    const [errImg, setErrImg] = useState(false)
+    const [errImg, setErrImg] = useState(false);
 
     function errorImgHandler(e) {
         return  e.type === 'error'

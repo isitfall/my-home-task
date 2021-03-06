@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {useLocation} from "react-router";
+import { useRouter } from "next/router";
 
 import Container from "../Container/Container";
 import Nav from "../Nav/Nav";
@@ -27,13 +27,13 @@ const MainSection = (props) => {
         }
     }
 
-    const location = useLocation()
+    const router = useRouter()
 
     return(
         <section className={classes.MainSection}>
             <Container>
                 <Nav/>
-                {location.pathname === '/' ? <NoMovieFound/> :  (
+                {router.pathname === '/' ? <NoMovieFound/> :  (
                     props.movies
                         ? moviesArr(props.moviesToShow).length
                         ?(<>

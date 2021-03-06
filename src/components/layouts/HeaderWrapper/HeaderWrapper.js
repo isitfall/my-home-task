@@ -1,5 +1,6 @@
 import React from 'react';
-import { Route, Switch } from "react-router";
+// import { Route, Switch } from "react-router";
+import { useRouter } from "next/router";
 
 import styles from "./HeaderWrapper.module.sass";
 import Logo from "../../UI/Logo/Logo";
@@ -9,17 +10,24 @@ import Loop from "../../UI/Loop/Loop";
 import PropTypes from 'prop-types';
 
 export default function HeaderWrapper(props) {
+    const router = useRouter();
+
     return (
         <div className={styles.HeaderWrapper}>
             <Logo/>
-            <Switch>
-                <Route exact path={'/film/:id'}>
-                    <Loop  />
-                </Route>
-                <Route path={'/'}>
-                    <Button styles={props.btnClass} title={'+add movie'} click={props.click}/>
-                </Route>
-            </Switch>
+
+            {props.showMovieDetails || router.pathname.includes('/film/')
+                ? <Loop  />
+                : <Button styles={props.btnClass} title={'+add movie'} click={props.click}/>
+            }
+            {/*<Switch>*/}
+            {/*    <Route exact path={'/film/:id'}>*/}
+            {/*        <Loop  />*/}
+            {/*    </Route>*/}
+            {/*    <Route path={'/'}>*/}
+            {/*        <Button styles={props.btnClass} title={'+add movie'} click={props.click}/>*/}
+            {/*    </Route>*/}
+            {/*</Switch>*/}
 
         </div>
     )
