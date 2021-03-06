@@ -4,6 +4,6 @@ Check **'branches'** to choose the home task.
 
 ***
 
-## ***Task 9 : Testing***
+## ***Task 10 : SSR (next.js)***
 
-to run test : ***npm run test***
+to run dev server (nex.js): ***npm run dev***

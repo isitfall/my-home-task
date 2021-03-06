@@ -4,10 +4,12 @@ import classes from './DotsIcon.sass'
 
 export default function DotsIcon(props) {
     return (
-        <div className={classes.DotsIcon} onClick={props.click}>
-            <span></span>
-            <span></span>
-            <span></span>
+        <div
+            className={classes.DotsIcon}
+            onClick={props.click}>
+            <span/>
+            <span/>
+            <span/>
         </div>
     )
 }
