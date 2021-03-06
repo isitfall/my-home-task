@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import DotsIcon from "../DotsIcon/DotsIcon";
 import MovieMenu from "../../layouts/MovieMenu/MovieMenu";
-import classes from './MovieItem.sass'
+import classes from './MovieItem.module.sass'
 import PropTypes from 'prop-types';
 import { MovieListItemContext } from "../../../Context/Context";
 

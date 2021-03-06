@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './BlurBackgroud.sass'
+import classes from './BlurBackgroud.module.sass'
 
 import Logo from "../../UI/Logo/Logo";
 import Container from "../Container/Container";

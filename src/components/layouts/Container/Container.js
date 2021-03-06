@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './Container.sass'
+import styles from './Container.module.sass'
 
 import PropTypes from 'prop-types'
 

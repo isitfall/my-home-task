@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import {connect} from 'react-redux'
 import {getMovieById} from "../../../Store/actionCreators";
 
-import classes from './MovieMenu.sass'
+import classes from './MovieMenu.module.sass'
 import PropTypes from 'prop-types';
 import MovieMenuItem from "../../UI/MovieMenuItem/MovieMenuItem";
 import ExitButton from "../../UI/ExitButton/ExitButton";

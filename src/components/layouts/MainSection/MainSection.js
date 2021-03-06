@@ -8,7 +8,7 @@ import SearchCounter from "../../UI/SearchCounter/SearchCounter";
 import MoviesList from "../../../containers/MoviesList/MoviesList";
 import NoMovieFound from "../NoMovieFound/NoMovieFound";
 
-import classes from './MainSection.sass'
+import classes from './MainSection.module.sass'
 
 const MainSection = (props) => {
     const moviesArr = (moviesToShow) => {

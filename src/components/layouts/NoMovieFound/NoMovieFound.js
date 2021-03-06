@@ -1,5 +1,5 @@
 import React from 'react'
-import classes from './NoMovieFound.sass'
+import classes from './NoMovieFound.module.sass'
 import MainTitle from "../../UI/MainTitle/MainTitle";
 
 export default function NoMovieFound() {

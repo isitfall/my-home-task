@@ -1,6 +1,6 @@
 import React, {useEffect, useRef} from 'react'
 import PropTypes from 'prop-types'
-import classes from './Inputs.sass'
+import classes from './Inputs.module.sass'
 
 export default function Select (props) {
 

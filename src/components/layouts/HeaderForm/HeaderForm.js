@@ -1,7 +1,7 @@
 import React from 'react';
 import {useHistory} from "react-router";
 
-import classes from './HeaderForm.sass'
+import classes from './HeaderForm.module.sass'
 import PropTypes from 'prop-types'
 
 export default function HeaderForm(props) {

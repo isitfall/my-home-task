@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-import classes from './MainTitle.sass'
+import classes from './MainTitle.module.sass'
 
 export default function MainTitle(props) {
     return (

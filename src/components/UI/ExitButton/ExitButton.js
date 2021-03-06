@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-import classes from './ExitButton.sass'
+import classes from './ExitButton.module.sass'
 
 
 export default function ExitButton(props) {

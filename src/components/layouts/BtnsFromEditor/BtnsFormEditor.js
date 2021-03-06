@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-import classes from './BtnsFormEditor.sass'
+import classes from './BtnsFormEditor.module.sass'
 import Button from "../../UI/Button/Button";
 
 export default function BtnsFormEditor(props) {

@@ -1,4 +1,4 @@
-import '../components/UI/DotsIcon/DotsIcon.sass';
+import '../index.css'
 
 export default function MyApp({ Component, pageProps }) {
     return <Component {...pageProps} />

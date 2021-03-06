@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-import classes from './ResultFilterItem.sass'
+import classes from './ResultFilterItem.module.sass'
 
 export default function ResultFilterItem({isActive, click, children}) {
     return (

@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux'
-import classes from './SearchCounter.sass'
+import classes from './SearchCounter.module.sass'
 
 export default function SearchCounter(props) {
     return <h2 className={classes.h2}>

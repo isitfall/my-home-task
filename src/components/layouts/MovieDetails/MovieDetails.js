@@ -7,7 +7,7 @@ import defaultPoster from '../../../assets/icons/defaultPoster.jpg'
 
 import PropTypes from 'prop-types'
 
-import classes from './MovieDetails.sass';
+import classes from './MovieDetails.module.sass';
 
 import {getMovieById} from "../../../Store/actionCreators";
 

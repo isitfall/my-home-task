@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import {useLocation} from "react-router";
 import ResultFilterItem from "../../UI/ResultFilterItem/ResultFilterItem";
-import classes from './ResultsFilter.sass'
+import classes from './ResultsFilter.module.sass'
 
 import actionsTypes from "../../../Store/actionsTypes";
 import { getMoviesSorted, showMoviesSorted } from "../../../Store/actionCreators";

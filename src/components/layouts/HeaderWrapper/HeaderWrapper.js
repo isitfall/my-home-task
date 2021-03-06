@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch } from "react-router";
 
-import styles from "./HeaderWrapper.sass";
+import styles from "./HeaderWrapper.module.sass";
 import Logo from "../../UI/Logo/Logo";
 import Button from "../../UI/Button/Button";
 import Loop from "../../UI/Loop/Loop";

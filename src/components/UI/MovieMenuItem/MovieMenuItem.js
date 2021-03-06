@@ -1,5 +1,5 @@
 import React from 'react'
-import classes from './MovieMenuItem.sass'
+import classes from './MovieMenuItem.module.sass'
 import PropTypes from 'prop-types'
 
 export default function MovieMenuItem(props) {

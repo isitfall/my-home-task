@@ -5,7 +5,7 @@ import Button from "../../UI/Button/Button";
 import ExitButton from "../../UI/ExitButton/ExitButton";
 import MainTitle from "../../UI/MainTitle/MainTitle";
 
-import classes from './DeleteMovie.sass'
+import classes from './DeleteMovie.module.sass'
 
 export default function DeleteMovie(props) {
     return (

@@ -4,6 +4,6 @@ import MainPage from "./Main/MainPage";
 import MyApp from "./_app";
 
 
-const indexPage = () => <MainPage />
+const indexPage = () => MyApp(<MainPage />)
 
 export default indexPage

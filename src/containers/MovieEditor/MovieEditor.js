@@ -2,7 +2,7 @@ import React, {useState, useEffect, useContext } from 'react';
 import {connect} from 'react-redux';
 import { useFormik } from "formik";
 
-import classes from './MovieEditor.sass';
+import classes from './MovieEditor.module.sass';
 import PropTypes from 'prop-types';
 
 import BlurBackground from "../../components/layouts/BlurBackground/BlurBackground";

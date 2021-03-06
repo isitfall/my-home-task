@@ -1,5 +1,5 @@
 import React from 'react'
-import classes from "./MovieId.sass";
+import classes from "./MovieId.module.sass";
 import PropTypes from 'prop-types'
 
 export default function MovieId(props) {

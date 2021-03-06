@@ -8,7 +8,7 @@ import MovieDetails from "../MovieDetails/MovieDetails";
 
 import PropTypes from 'prop-types'
 
-import styles from './Header.sass';
+import styles from './Header.module.sass';
 
 
 export default function Header(props) {

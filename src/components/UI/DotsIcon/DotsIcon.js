@@ -1,6 +1,6 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import classes from './DotsIcon.sass'
+import React from 'react';
+import PropTypes from 'prop-types';
+import classes from './DotsIcon.module.sass';
 
 export default function DotsIcon(props) {
     return (
@@ -12,8 +12,8 @@ export default function DotsIcon(props) {
             <span/>
         </div>
     )
-}
+};
 
 DotsIcon.propTypes = {
     click: PropTypes.func
-}
+};

@@ -5,8 +5,8 @@ import Button from "../../UI/Button/Button";
 import ExitButton from "../../UI/ExitButton/ExitButton";
 import MainTitle from "../../UI/MainTitle/MainTitle";
 import BlurBackground from "../BlurBackground/BlurBackground";
-import congratsIcon from '../../../assets/icons/Sucsess.png';
-import classes from './ModalWindow.sass';
+import congratsIcon from '../../../assets/icons/Success.png';
+import classes from './ModalWindow.module.sass';
 
 import {MovieListItemContext} from "../../../Context/Context";
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import MovieItem from "../../components/UI/MovieItem/MovieItem";
-import classes from './MoviesList.sass'
+import classes from './MoviesList.module.sass'
 
 
 

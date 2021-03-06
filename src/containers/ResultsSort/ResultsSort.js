@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { connect } from 'react-redux'
 
 import { sortMoviesByReleaseDate, sortMoviesByRating } from "../../Store/actions";
-import classes from './ResultsSort.sass'
+import classes from './ResultsSort.module.sass'
 
 
 function ResultsSort (props) {
@@ -40,13 +40,14 @@ function ResultsSort (props) {
         <div className={classes.ResultsSort}>
             <span className={classes.ResultsSort__name}>sort by</span>
             <div className={classes.ResultsSort__select}>
-                <select name="SortResults"
+                <select className={classes.select}
+                        name="SortResults"
                         id="SortResults"
                         value={state}
                         onChange={changeHandler}
                 >
-                    <option value="releaseDate">Release date</option>
-                    <option value="byRating">Rating</option>
+                    <option className={classes.option} value="releaseDate">Release date</option>
+                    <option className={classes.option} value="byRating">Rating</option>
                 </select>
             </div>
         </div>
