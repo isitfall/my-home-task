@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 // import { Link } from "react-router-dom";
+import Link from "next/link";
 
 import DotsIcon from "../DotsIcon/DotsIcon";
 import MovieMenu from "../../layouts/MovieMenu/MovieMenu";
@@ -52,8 +53,8 @@ export default function MovieItem(props) {
         >
 
                 {showByConditionally()}
-                <Link to={`/film/${props.id}`} className={classes.link}>
-
+                <Link href={`/film/${props.id}`} className={classes.link}>
+                    <a className={classes.link}>
                     <img src={errImg ? props.defaultImg
                         : props.img}
                          alt="img"
@@ -69,6 +70,7 @@ export default function MovieItem(props) {
                     <span className={classes.genre}>
                 {props.genre.join(', ')}
                 </span>
+                </a>
                 </Link>
 
 

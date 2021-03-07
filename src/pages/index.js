@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 import MainPage from "./Main/MainPage";
 
-const indexPage = () => <MainPage />
+const indexPage = () => <MainPage />;
 
-export default indexPage
+export default indexPage;
