@@ -4,9 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "serve": "SET NODE_ENV='developement' && webpack serve",
-    "build": "SET NODE_ENV='developement' && webpack --watch --progress",
-    "production": "webpack --progress",
     "test": "jest --coverage",
     "dev": "next",
     "build-next": "next build",
