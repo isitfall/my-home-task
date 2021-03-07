@@ -10,7 +10,7 @@ export default function Loop(props) {
 
     return (
         <Link href={"/search/"} className={classes.Loop}>
-            <img src={loopIcon} alt="loop"/>
+            <img className={classes.Loop} src={loopIcon} alt="loop"/>
         </Link>
     )
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import Link from 'next/link';
 
 import icon from '../../assets/icons/404.png'
 import Button from "../../components/UI/Button/Button";
@@ -8,7 +8,7 @@ import MainTitle from "../../components/UI/MainTitle/MainTitle";
 import Container from "../../components/layouts/Container/Container";
 import Footer from "../../components/layouts/Footer/Footer";
 
-import classes from './404.sass'
+import classes from './404.module.sass'
 
 export default function NoMatch() {
     return (
@@ -23,10 +23,13 @@ export default function NoMatch() {
                     <div className={classes.content}>
                         <MainTitle>Page Not Found</MainTitle>
                         <img src={icon} alt="icon"/>
-                        <Link to={'/'}>
-                            <Button title={'Go back to Home'}
-                                    styles={classes.button}
-                            />
+                        <Link href={'/'}>
+                            <a>
+                                <Button title={'Go back to Home'}
+                                        styles={classes.button}
+                                />
+                            </a>
+
                         </Link>
 
                     </div>
