@@ -33,7 +33,7 @@ export default function HeaderWrapper(props) {
     )
 }
 
-HeaderWrapper.PropTypes = {
+HeaderWrapper.propTypes = {
     btnClass: PropTypes.string.isRequired,
     showMovieDetails: PropTypes.bool
 }
